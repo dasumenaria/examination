@@ -72,7 +72,6 @@ else
 								<i class="fa"></i>
 								<input class="form-control" placeholder="Please Enter Class Name" required name="class" autocomplete="off" type="text">
 								</div>
-								
 							</div>
 						</div>
                         <div class="form-group">
