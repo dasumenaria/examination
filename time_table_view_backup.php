@@ -1,5 +1,4 @@
 <?php 
-include("index_layout.php");
 include("database.php");
 include("authentication.php");
 
@@ -9,24 +8,11 @@ $time_to=$_GET['time_to'];
  ?>
 <html >
 <head>
-<?php css();?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Master | Time Table</title>
 </head>
-<?php contant_start(); menu();  ?>
 <body>
-<div class="page-content-wrapper">
-	<div class="page-content">
-		<div class="portlet box blue">
-			<div class="portlet-title">
-				<div class="caption">
-					<i class="icon-puzzle"></i> Time Table
-				</div>
-			</div>
-			<div class="portlet-body form">
-			<!-- BEGIN FORM-->
-				<div class="portlet-body">
-					<div class="table-scrollable">
+
 						<?php 
 						$st=mysql_query("select * from `school`");
 						$ft=mysql_fetch_array($st);
@@ -115,36 +101,6 @@ $time_to=$_GET['time_to'];
 									</tr>
 								</tfoot>
 							</table>
-						</div>
-					</div>
-				</div>
-		<!-- END FORM-->
-		</div>
-	</div>
-</div>
+						
 </body>
-<?php footer();?>
-<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function() {
-		$(".user4").live("change",function(){
-			var l=$(this).val();
-			if(l.length > 0)
-			{
-				var m=$(".user3").val();
-				var t=$(".user").val();
-				$.ajax({
-					url: "ajax_time_table.php?pon="+t+"&pon1="+m+"&pon3="+l,
-					}).done(function(response){
-					$("#cs").html(""+response+"");
-				});
-			}
-			else
-			{
-				$("#cs").html("");
-			}
-		});
-	});
-</script>
-<?php scripts();?>
 </html>
