@@ -7,43 +7,48 @@ $term_id=$_GET['term'];
 $time_from=$_GET['time_from'];
 $time_to=$_GET['time_to'];
  ?>
-<html >
+<html>
 <head>
 <?php css();?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Master | Time Table</title>
+<style>
+.table>thead>tr>th{
+	font-size:12px !important;
+}
+
+ @media print
+   {
+     .printdata{
+		 display:none;
+	 }
+   }
+
+</style>
 </head>
-<?php contant_start(); menu();  ?>
-<body>
-<div class="page-content-wrapper">
-	<div class="page-content">
-		<div class="portlet box blue">
-			<div class="portlet-title">
-				<div class="caption">
-					<i class="icon-puzzle"></i> Time Table
-				</div>
-			</div>
-			<div class="portlet-body form">
-			<!-- BEGIN FORM-->
-				<div class="portlet-body">
-					<div class="table-scrollable">
+<body style="background-color:#E6E6FA">
+
 						<?php 
 						$st=mysql_query("select * from `school`");
 						$ft=mysql_fetch_array($st);
 						
 						$school_name=$ft['school'];
 						$school_address=$ft['address'];
+						$logo=$ft['logo'];
 						
 						$st1=mysql_query("select `name` from `master_term` where `id`='$id'");
 						$ft2=mysql_fetch_array($st1);
 						$term_name=$ft2['name'];
 						?>
+						<a href="index.php"><button type="button" class="btn btn-primary hide_print" align="right">Back </button></a>
+						<button   type="button" class="btn btn-primary hide_print" onclick="window.print()" align="right" value="Print Admit Card">Print </button>
+								<h3 align="center"><center><img src="img/<?php echo $logo; ?>" height="100px" width="100px"></center></h3>
 								<h2 style="text-align:center"><?php echo $school_name; ?></h2>
 								<h4 style="text-align:center"><?php echo $school_address; ?></h4>
 								<h3 style="text-align:center">Time Table of - <?php echo $term_name; ?></h3>
 								<table class="table table-striped table-bordered table-hover " width="100%" border="1">
 								<caption style="text-align:center;">Exam Time From - <?php echo $time_from; ?> To -<?php echo $time_to; ?></caption>
-								<thead>
+								<thead style="font-weight:bold;">
 									<tr>
 										<th style="text-align:center;">
 											 Date/Class
@@ -106,45 +111,21 @@ $time_to=$_GET['time_to'];
 									<tr>
 										<td colspan='100'>
 											<h3>Instructions</h3>
-											<input type="text" ><br>
-											<input type="text" ><br>
-											<input type="text" ><br>
-											<input type="text" ><br>
-											<input type="text" ><br>
+											<?php 
+											$sst=mysql_query("select * from `time_table_instruction` ORder by `id` ASC");
+											while($fft=mysql_fetch_array($sst))
+											{
+												$r++;
+												$instruction=$fft['instruction'];
+											?>
+											 <span><?php echo $r.'. '. $instruction; ?></span><br>
+											<?php } ?>
 										</td>
 									</tr>
 								</tfoot>
 							</table>
-						</div>
-					</div>
-				</div>
-		<!-- END FORM-->
-		</div>
-	</div>
-</div>
+						
 </body>
 <?php footer();?>
-<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function() {
-		$(".user4").live("change",function(){
-			var l=$(this).val();
-			if(l.length > 0)
-			{
-				var m=$(".user3").val();
-				var t=$(".user").val();
-				$.ajax({
-					url: "ajax_time_table.php?pon="+t+"&pon1="+m+"&pon3="+l,
-					}).done(function(response){
-					$("#cs").html(""+response+"");
-				});
-			}
-			else
-			{
-				$("#cs").html("");
-			}
-		});
-	});
-</script>
 <?php scripts();?>
 </html>

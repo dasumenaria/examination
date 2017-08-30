@@ -3,12 +3,19 @@ include("index_layout.php");
 include("database.php");
 include("authentication.php");
 
+if(isset($_POST['sub_add']))
+{
 	$term_id=$_POST['term_id'];
 	$category_id=$_POST['category_id'];
 	$days=$_POST['no_of_day'];
 	$time_from=$_POST['time_from'];
 	$time_to=$_POST['time_to'];
-	
+	$instructions=$_POST['instruction'];
+	mysql_query("Delete from `time_table_instruction` where 1");
+	foreach($instructions as $value){
+		mysql_query("insert into `time_table_instruction` SET `instruction`='$value'");
+	}
+}	
 	if(isset($_POST['data_sub'])){
 		
 		$all_subject=$_POST['all_subject'];

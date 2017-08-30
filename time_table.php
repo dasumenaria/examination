@@ -236,10 +236,27 @@ else
 			$("#dys").html("");
 		}
 	});
-			  	  
+	
+	$(document).on('click','.remove',function()
+	{
+		$(this).closest('div .main').remove();
+	});	
+	  	  
 });
 	</script>
-		
+	<script>
+	function adds(){
+ 		var t=$("#total").val();
+ 		var tot=parseInt(t)+1;
+ 		$.ajax({
+			url: "time_table_add_row.php?total="+t,
+			}).done(function(response) {
+			$("#cs"+t).html(""+response+"");
+			$("#total").val(tot);
+		});
+	}
+	
+	</script>
 <?php scripts();?>
 		 
   

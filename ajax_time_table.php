@@ -56,12 +56,28 @@ $category_id=$_GET['pon5'];
 				</div>
 			</div>
 		</div>
+		<br>
+		
+		<div class="form-group">
+			<label class="control-label col-md-3">1. </label>
+			<div class="col-md-6">
+				<div class="input-icon right">
+				<i class="fa"></i>
+				<input class="form-control" placeholder="instruction" required name="instruction[]" autocomplete="off" type="text">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<button type="button" name="add_more" onclick="adds();" class="btn btn-sm yellow ads"><i class="fa fa-plus"></i></button>
+			</div>
+				<input type="hidden" id="total" value="1" />	
+				<div id="cs1" ></div>
+		</div>
 		
 		
 		<div class="form-actions top">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-9">
-					<button type="submit" name="sub" class="btn green">Next</button>
+					<button type="submit" name="sub_add" class="btn green">Next</button>
 					<button type="reset" class="btn default">Cancel</button>
 				</div>
 			</div>
