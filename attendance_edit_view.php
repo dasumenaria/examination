@@ -156,7 +156,7 @@ tr{
 									<td><?php echo $name; ?></td>
 								<?php 
 								
-									$qst=mysql_query("select `attendance`,`id` from `attendance` where `scholar_no`='$scholar_no' && `term`='$exam_id' ");
+									$qst=mysql_query("select `attendance`,`id` from `attendance` where `scholar_no`='$scholar_no' && `term`='$exam_id'  order by `id` DESC");
 									$fst=mysql_fetch_array($qst);
 									
 									$retrive_type=$sub_subject_name;

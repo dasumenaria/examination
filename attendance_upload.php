@@ -10,36 +10,32 @@ if(isset($_POST["Import"]))
 {
 	 $session=$_SESSION['sess'];
 	 $term=$_POST['exam_name'];
-	  
-    //First we need to make a connection with the database
+     //First we need to make a connection with the database
  		$filename=$_FILES["file"]["tmp_name"];
 		$fil=$_FILES['file']['name'];
 		$ext=pathinfo($fil, PATHINFO_EXTENSION);
-     if(($_FILES["file"]["size"] > 0) && ($ext=='csv'))
+    if(($_FILES["file"]["size"] > 0) && ($ext=='csv'))
     {
-        $file = fopen($filename, "r");
- $emapData = fgetcsv($file, 10000, ",");
- 
-$count = 0;                                         // add this line
-while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
-{
-       $count++;                                      // add this line
-
-    if($count>0){                                  // add this line
-	 
-      $sql1 = "INSERT into attendance(scholar_no,term,attendance) values ('$emapData[3]','$term','$emapData[5]')";
-      mysql_query($sql1);
-	  $sql1;
-	   
-	  
-    }     // add this line
-
-}
-
-fclose($file);
+		$file = fopen($filename, "r");
+		$emapData = fgetcsv($file, 10000, ",");
+		$emapData=array_filter($emapData);
+		$count = 0;                                         // add this line
+		while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
+		{ 
+			$count++;                                      // add this line
+			if($count>0){ 
+				if(!empty($emapData[2]))
+				{
+					mysql_query("delete from`attendance` where `scholar_no`='$emapData[3]' && `term`='$term'  ");
+					$sql1 = "INSERT into attendance(scholar_no,term,attendance) values ('$emapData[3]','$term','$emapData[5]')";
+					mysql_query($sql1);
+					$sql1;
+				}
+			}     
+		}
+ 		fclose($file);
         //echo 'CSV File has been successfully Imported';
-
-        header('Location: attendance_upload.php');
+         header('Location: attendance_upload.php');
     }  	
     else{
 		$msg=1;
