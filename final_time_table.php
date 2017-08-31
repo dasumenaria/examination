@@ -11,7 +11,7 @@ if(isset($_POST['sub_add']))
 	$time_from=$_POST['time_from'];
 	$time_to=$_POST['time_to'];
 	$instructions=$_POST['instruction'];
-	mysql_query("Delete from `time_table_instruction` where 1");
+	mysql_query("Delete from `time_table_instruction`");
 	foreach($instructions as $value){
 		mysql_query("insert into `time_table_instruction` SET `instruction`='$value'");
 	}
@@ -35,7 +35,8 @@ if(isset($_POST['sub_add']))
 				$cls_id=$fot['id'];
 				$class_id=$all_class[$i][$cls_id];
 				$subject=implode(',', $all_subject[$i][$cls_id]);
-			
+				mysql_query("delete from `time_table` where `class_id`='$class_id',`term_id`='$term_id',`category_id`='$category_id'");
+				
 				mysql_query("insert into `time_table` SET `class_id`='$class_id',`term_id`='$term_id',`category_id`='$category_id',`date`='$date',`time_from`='$time_from',`time_to`='$time_to',`subject_id`='$subject'");
 			}
 			
@@ -96,7 +97,7 @@ if(isset($_POST['sub_add']))
 									<tr>
 										<td style="text-align:center;" >
 											<div class="input-icon right">
-												<input class="form-control form-control-inline input-small date-picker" required data-date-format="dd-mm-yyyy" size="16" value="" type="text" name="exam_date[<?php echo $i;?>]" >
+												<input class="form-control form-control-inline input-small date-picker" required data-date-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" size="16" value="" type="text" name="exam_date[<?php echo $i;?>]" >
 											</div>
 										</td>
 										<?php 
@@ -148,27 +149,5 @@ if(isset($_POST['sub_add']))
 </div>
 </body>
 <?php footer();?>
-<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script>
-	$(document).ready(function() {
-		$(".user4").live("change",function(){
-			var l=$(this).val();
-			if(l.length > 0)
-			{
-				var m=$(".user3").val();
-				var t=$(".user").val();
-				$.ajax({
-					url: "ajax_time_table.php?pon="+t+"&pon1="+m+"&pon3="+l,
-					}).done(function(response){
-					$("#cs").html(""+response+"");
-				});
-			}
-			else
-			{
-				$("#cs").html("");
-			}
-		});
-	});
-</script>
 <?php scripts();?>
 </html>

@@ -2,12 +2,19 @@
 include("index_layout.php");
 include("database.php");
 include("authentication.php");
+if(isset($_POST['sub_add']))
+{
+	$term_id=$_POST['term_id'];
+ 	$category_id=$_POST['category_id'];
+	header("location:timetable_report.php?term=".$term_id."&category_id=".$category_id."");
+  exit;
+}
 ?>
 <html >
 <head>
 <?php css();?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Master | Marks</title>
+<title>Time Table</title>
 </head>
 <?php contant_start(); menu();  ?>
 <body>
@@ -16,12 +23,12 @@ include("authentication.php");
 			<div class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-puzzle"></i> Time Table
+					<i class="icon-puzzle"></i>View Time Table
 				</div>
 			</div>
 			<div class="portlet-body form">
 			<!-- BEGIN FORM-->
-				<form  class="form-horizontal" id="form_sample_2"  role="form" method="post" action="final_time_table.php"> 
+				<form  class="form-horizontal" id="form_sample_2"  role="form" method="post"> 
 					<div class="form-body">
 						<div class="form-group">
 						<label class="control-label col-md-3">Term</label>
@@ -46,17 +53,11 @@ include("authentication.php");
 								Please select Term category</span>
 							</div>
 					</div>
-		
-				<div id="cs" ></div>
-					
-					 	 
-					</div>
-					
-
-				</form>
+					<div id="cs" ></div>
+ 					</div>
+ 				</form>
 			</div>
 				<!-- END FORM-->
-				 
 		</div>		   
 			</div>
 	</div>
@@ -65,25 +66,9 @@ include("authentication.php");
 <?php footer();?>
 <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script>
-		$(document).ready(function() {
+$(document).ready(function() {
 
-$(".chk_input").live("click",function(){
-				  
-	var attr_val= $(this).attr('chk_val');			   
-	var valu=$(this).is( ':checked' );
-	
-if(valu==0)
-	{
-		$(".all_chk"+attr_val ).parent('span').removeClass('checked');
-		$(".all_chk"+attr_val ).removeAttr('checked','checked');
-	}
-else
-	{
-		$(".all_chk"+attr_val ).parent('span').addClass('checked');
-		$(".all_chk"+attr_val ).attr('checked','checked');
-	}
-});
-	 	
+  	
 			  
 	$(".user4").live("change",function(){
 		var l=$(this).val();
@@ -93,7 +78,7 @@ else
 			var t=$(".user").val();
 			
 			$.ajax({
-				url: "ajax_time_table.php?pon="+t+"&pon1="+m+"&pon3="+l,
+				url: "ajax_time_table_report.php?pon="+t+"&pon1="+m+"&pon3="+l,
 				}).done(function(response){
 				$("#cs").html(""+response+"");
 			});
@@ -113,7 +98,7 @@ else
 			var l=$(".user4").val();
 	
 			$.ajax({
-				url: "ajax_time_table.php?pon3="+l+"&pon5="+q,
+				url: "ajax_time_table_report.php?pon3="+l+"&pon5="+q,
 				}).done(function(response) {
 				$("#dys").html(""+response+"");
 			});
@@ -124,8 +109,8 @@ else
 		}
 	});
  });
-</script>
- 
+	</script>
+	 
 <?php scripts();?>
 		 
   
