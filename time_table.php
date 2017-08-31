@@ -239,7 +239,11 @@ else
 	
 	$(document).on('click','.remove',function()
 	{
+		var t=$("#total").val();
+		var tot=t-1;
+		$("#total").val(tot);
 		$(this).closest('div .main').remove();
+		
 	});	
 	  	  
 });

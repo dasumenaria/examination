@@ -45,42 +45,55 @@ $category_id=$_GET['pon5'];
 			<div class="col-md-2">
 				<div class="input-icon right">
 				<i class="fa"></i>
-				<input class="form-control" placeholder="9:00 AM" required name="time_from" autocomplete="off" type="text">
+				<input class="form-control timepicker" placeholder="9:00 AM" required name="time_from" autocomplete="off" type="text">
 				</div>
 			</div>
 			<label class="control-label col-md-2">Time To</label>
 			<div class="col-md-2">
 				<div class="input-icon right">
 				<i class="fa"></i>
-				<input class="form-control" placeholder="12:00 PM" required name="time_to" autocomplete="off" type="text">
+				<input class="form-control timepicker" placeholder="12:00 PM" required name="time_to" autocomplete="off" type="text">
 				</div>
 			</div>
 		</div>
 		<br>
-		
-		<div class="form-group">
-			<label class="control-label col-md-3">1. </label>
-			<div class="col-md-6">
-				<div class="input-icon right">
-				<i class="fa"></i>
-				<input class="form-control" placeholder="instruction" required name="instruction[]" autocomplete="off" type="text">
-				</div>
-			</div>
-			<div class="col-md-3">
-				<button type="button" name="add_more" onclick="adds();" class="btn btn-sm yellow ads"><i class="fa fa-plus"></i></button>
-			</div>
-				<input type="hidden" id="total" value="1" />	
-				<div id="cs1" ></div>
+	<table class="table table-striped table-hover" style="text-align:center">
+    <tr>
+		<td>Time Table Instruction</td>
+		<td>Add More</td>
+	</tr>
+ 	<tr>
+  	<td align="right">
+		<input class="form-control" placeholder="instruction" required name="instruction[]" autocomplete="off" type="text">
+	</td>
+	<td>
+		<input type='button' class='AddNew btn btn-icon-only green' value='+'>
+	</td>
+	</tr>
+</table>	
+<div class="form-actions top">
+	<div class="row">
+		<div class="col-md-offset-3 col-md-9">
+			<button type="submit" name="sub_add" class="btn green">Next</button>
+			<button type="reset" class="btn default">Cancel</button>
 		</div>
-		
-		
-		<div class="form-actions top">
-			<div class="row">
-				<div class="col-md-offset-3 col-md-9">
-					<button type="submit" name="sub_add" class="btn green">Next</button>
-					<button type="reset" class="btn default">Cancel</button>
-				</div>
-			</div>
-		</div>
+	</div>
+</div>
+<script>
+ $('.timepicker').timepicker();
+$('.AddNew').click(function(){
+   var row = $(this).closest('tr').clone();
+   row.find('input').val('');
+   $(this).closest('tr').after(row);
+   
+   $('.date-picker').datepicker();
+   $('.timepicker').timepicker();
+   $('input[type="button"]', row).removeClass('AddNew').addClass('RemoveRow').val('-');
+});
+
+$('table').on('click', '.RemoveRow', function(){ 
+  $(this).closest('tr').remove();
+});	
+</script>
 	<?php } ?>
 	
