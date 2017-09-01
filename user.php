@@ -4,25 +4,16 @@ include("authentication.php");
 
 if(isset($_POST['sub']))
 {
-			  $role_id=$_POST['role_id'];
-	 
-			mysql_query("DELETE FROM `user_settings` WHERE `role_id`='$role_id'");
-	
-	
-	 $chk=$_POST['check'];
-	
-	if (is_array($chk))
+	$role_id=$_POST['role_id'];
+	mysql_query("DELETE FROM `user_settings` WHERE `role_id`='$role_id'");	
+	$chk=$_POST['check'];
+ 	if (is_array($chk))
 		{
-		
 			foreach ($chk as $value)
 			{
-				 
 				mysql_query("insert into `user_settings` set `role_id`='$role_id',`module_id`='$value'");
-				
-				
 			}
 		}
-	
 }
 
 
