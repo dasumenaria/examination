@@ -4,7 +4,7 @@ include("database.php");
 $class_id=$_GET['pon'];
 $user_id=$_GET['pon1'];
 
-$slt=mysql_query("select `roman` from `master_class` where `id`='class_id'");
+$slt=mysql_query("select `roman` from `master_class` where `id`='$class_id'");
 $flt=mysql_fetch_array($slt);
 $cls_shw_nm=$flt['roman'];
 
