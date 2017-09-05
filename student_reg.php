@@ -31,7 +31,7 @@ if(isset($_POST['sub']))
 	
 if(isset($_POST["Import"]))
 {
-	$session=$_SESSION['sess'];
+	/* $session=$_SESSION['sess'];
     //First we need to make a connection with the database
     $host='localhost'; // Host Name.
     $db_user= 'wwwsmtma_session';
@@ -39,7 +39,7 @@ if(isset($_POST["Import"]))
     $db= 'wwwsmtma_'.$session;
     $conn=mysql_connect($host,$db_user,$db_password) or die (mysql_error());
     mysql_select_db($db) or die (mysql_error());
-	
+	 */
       $filename=$_FILES["file"]["tmp_name"];
 		  $fil=$_FILES['file']['name'];
 	   $ext=pathinfo($fil, PATHINFO_EXTENSION);

@@ -227,6 +227,6 @@ if($role_name=='Admin'){
 <?php } ?>
 <?php if((!empty($cls)) && (!empty($sec)) && (!empty($sub)) && (!empty($trm)) && (empty($cat))){?>
 	<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="roll_no_sheet.php?cls=<?php echo $cls; ?>&sec=<?php echo $sec; ?>&sub=<?php echo $sub; ?>&trm=<?php echo $trm; ?>&cat=<?php echo $cat; ?>&sub_subject=<?php echo $sub_subj; ?>" >
-	<strong>Download Excel Sheet</strong>
+	<strong>VIEW SHEET ROLL NO</strong>
 	</a>
 <?php } ?>

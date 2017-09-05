@@ -227,7 +227,7 @@ function header_info_CBA($id,$exam_name)
         <tr>
         	<td>
             	 
-                    <img width="100%"  height="220" src="img/cba_marksheet.png"/>
+               <img width="100%"  height="220" src="img/mds.gif"/>
                  
             </td>
          </tr>
