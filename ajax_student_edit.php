@@ -79,8 +79,12 @@ $qury="`class_id` = '$class_id' && `section_id` = '$section_id' && `scholar_no` 
         $class_id=$fetch['class_id'];
         $section_id=$fetch['section_id'];
         $dob=$fetch['dob'];
-        $dt_updt=date('d-m-Y', strtotime($dob));
+        if($dob=='0000-00-00' || $dob=='1990-01-01')
+		{$real_dob='';}
+		else
+		{
         $real_dob=date('d-M-Y', strtotime($dob));
+		}
         $father_name=$fetch['father_name'];
         $mother_name=$fetch['mother_name'];
         $address=$fetch['address'];
@@ -131,7 +135,7 @@ $qury="`class_id` = '$class_id' && `section_id` = '$section_id' && `scholar_no` 
     <label class="col-md-1 control-label">D-O-B</label>
         <div class="col-md-5">
 
-<input class="form-control form-control-inline input-large date-picker" data-date-format="dd-mm-yyyy" size="16" value="<?php echo $dt_updt; ?>" type="text" name="dob" >
+<input class="form-control form-control-inline input-large date-picker" data-date-format="dd-mm-yyyy" size="16" value="<?php echo $real_dob; ?>" type="text" name="dob" >
          
         </div>
      
