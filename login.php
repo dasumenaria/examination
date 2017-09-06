@@ -8,6 +8,7 @@
 	mysql_select_db($dbName,$s);
 	$sel_session=mysql_query("select `session` from `user_session`");
 	$arr_session=mysql_fetch_array($sel_session);
+	@session_start();
 	$_SESSION['session']=$arr_session['session'];
 	
   	$dbName=$arr_session['session'];
