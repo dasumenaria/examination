@@ -135,7 +135,7 @@ if($role_name=='Admin'){
 									<select class="form-control user2" required name="subj">
 									<option value="">---Select Subject---</option>
 								   <?php 
-  								   $qst=mysql_query("select * from `mapping_faculty_class` where `class_id`='$class' && `section_id`='$section' && `staff_id`='$fac_id'");
+  								   $qst=mysql_query("select * from `staff_class` where `class_id`='$class' && `section_id`='$section' && `staff_id`='$fac_id'");
 								   while($fst=mysql_fetch_array($qst))
 								   {
 										$subs_id=$fst['subject'];
