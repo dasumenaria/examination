@@ -105,7 +105,7 @@ $id1=$_GET['pon'];
 													<td width="5%" >
 														<div class="checkbox-list">
 															<label>
-																<input type="checkbox" <?php if(in_array($ids,$mng_mdul_id)){ echo 'checked="checked"';}?>  class="chk_boxes2<?php echo $ids;?> chkall"  name="check[]"  value="<?php echo $ids;?>">
+																<input type="checkbox" <?php if(in_array($ids,$mng_mdul_id)){ echo 'checked="checked"';}?>  class="chk_boxes2<?php echo $id;?> chkall"  name="check[]"  value="<?php echo $ids;?>">
 															</label>
 														</div>
 													</td>
@@ -138,7 +138,6 @@ $(document).ready(function(){
 	});
 	$('.chk_boxes1').click(function() {
 		var id=$(this).val();
-		
         $('.chk_boxes2'+id).prop('checked', this.checked);
     });
 });
