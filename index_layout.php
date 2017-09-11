@@ -94,9 +94,9 @@ function contant_start()
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO page-logo -->
 		<div class="page-logo" >
-			<a href="index.php" style="text-decoration:none;" >
+			<!--a href="index.php" style="text-decoration:none;" >
 				<img src="img/mds_logo.png" alt="logo" height="45px" width="400px" style="padding-top:1px ! important">
-			</a>
+			</a-->
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
 			</div>
@@ -253,7 +253,7 @@ function contant_start()
 					<?php 
 					 //echo $sh;
 					?>
-					PRATAP NAGAR BRANCH
+					
 					 </span>
 					 
 					</a>

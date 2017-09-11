@@ -11,13 +11,13 @@ if(isset($_POST['sub']))
  	$category_id=$_POST['category_id'];
 	$marksheet_term_id=$_POST['marksheet_term_id'];
 	 
-	mysql_query("delete from `master_architecture` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `marksheet_term_id`='$marksheet_term_id'");
+	mysql_query("delete from `master_architecture` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$marksheet_term_id' && `marksheet_term_id`='$term_id'");
 	  
  foreach($category_id as $value)
  {
 	 $value;
 	  
-	 mysql_query("insert into `master_architecture` SET `class_id`='$class_id',`section_id`='$section_id',`term_id`='$term_id',`category_id`='$value',`marksheet_term_id`='$marksheet_term_id'");
+	 mysql_query("insert into `master_architecture` SET `class_id`='$class_id',`section_id`='$section_id',`term_id`='$marksheet_term_id',`category_id`='$value',`marksheet_term_id`='$term_id'");
  }
 
 echo "<meta http-equiv='refresh' content='0;url=architecture.php'>";	

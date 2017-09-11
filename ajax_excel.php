@@ -51,8 +51,8 @@ if((!empty($class)) && (empty($section)) ){
 						
 						<div id="sec"></div>
 					
-<?php } if(!empty($section)){
-	
+<?php } if(!empty($section))
+{	
 $qtr=mysql_query("select `role` from `role` where `id`='$role_id'");
 $ftr=mysql_fetch_array($qtr);
 $role_name=$ftr['role'];
