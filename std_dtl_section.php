@@ -54,7 +54,7 @@ $sle_stdnt_reg=mysql_query(" select * from `student` where `class_id`='$class_id
 	$fnamee=$ftc_stdnt_reg['name'];
 	$scholar_no=$ftc_stdnt_reg['scholar_no'];
 	$dob_nw=$ftc_stdnt_reg['dob'];
-	if(!empty($dob_nw))
+	if($dob_nw!='0000-00-00')
 	{
 		$dob=date("d-m-Y",strtotime($dob_nw));
 	}
