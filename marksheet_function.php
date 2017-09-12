@@ -226,16 +226,14 @@ function header_info_CBA($id,$exam_name)
     <table width="100%" border="0">
         <tr>
         	<td>
-            	 
-               <img width="100%"  height="220" src="img/mds.gif"/>
-                 
+               <img width="100%"  height="220" src="img/cba_marksheet.png"/>
             </td>
          </tr>
  	</table>
 	<div style="width:100%">
 	<table style="width:100%;margin-top:20px; margin-left:1px; font-size:14px" cellpadding="1" border="0" cellspacing="10">
         <tr>
-            <td style="width:15%" align="center" rowspan="6"><img src="img/aloklogo.png" height="120" width="100"/></td>
+            <td style="width:15%" align="center" rowspan="6"><img src="img/CBALogo.png" height="120" width="100"/></td>
         </tr>
       <tr align="left">
       	<th style="width:15%">Scholar No.</th>

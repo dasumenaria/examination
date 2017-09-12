@@ -70,6 +70,6 @@ if((!empty($class)) && (empty($section)) ){
 
 <?php } if((!empty($class)) && (!empty($section)) && (!empty($term))){ ?>
  
-<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="extra1.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" ><strong>Download </strong>(Click Here)</a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="extra1.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" > <i class="fa fa-download"></i> Download </a>
 
 <?php } ?>

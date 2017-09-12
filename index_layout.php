@@ -473,8 +473,9 @@ function menu() {
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
+		
 	</div>
-	
+
 	<?php } ?>
 
 <?php 
@@ -539,8 +540,8 @@ function scripts()
 <script src="assets/admin/pages/scripts/ui-general.js" type="text/javascript"></script>
 
 <script>
-jQuery(document).ready(function() {    
-	Metronic.init(); // init metronic core components
+jQuery(document).ready(function() {   
+ 	Metronic.init(); // init metronic core components
 	Layout.init(); // init current layout
 	QuickSidebar.init(); // init quick sidebar
 	Demo.init(); // init demo features
@@ -551,6 +552,7 @@ jQuery(document).ready(function() {
 	UIGeneral.init();
 	FormiCheck.init(); // init page demo
 	ComponentsDropdowns.init();
+	
 });
 </script>
 

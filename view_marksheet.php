@@ -97,7 +97,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						} 	
 					}
 					else
-					{for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
+					{ for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
 					}
                 }
                 ?>	
@@ -212,27 +212,23 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
                  	<th><?php echo $SNo; ?></th>
                     <th height="33" width="8%" style="margin-left:5px"><?php echo $subject; if(!empty($sub_subject_name)){ ?>-<?php echo $sub_subject_name; } ?></th> 
                 <?php
-					 
+					 $TotalMaxMarks=0;
+						$TotalGetMarks=0;
  				//* Architacher Loop
 					$ArchitacherQuery=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
 					while($ftc_ArchitacherQuery=mysql_fetch_array($ArchitacherQuery))
 					{
 						$ftc_ArchitacherQueryTerm_id=$ftc_ArchitacherQuery['term_id'];
-						$TotalMaxMarks=0;
-						$TotalGetMarks=0;
+						
 						$total_one=0;
 						$category_wisecolumn=mysql_query("select * from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
 						while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 						{
-							$categoryidd=$ftc_categorywise['category_id'];	
-							//** Exam Mapping Table ------- FInd Exam Category
+							$categoryidd=$ftc_categorywise['category_id'];
 							$exam_category_query=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$ftc_ArchitacherQueryTerm_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id` ASC");
 							$Countexam_category_query=mysql_num_rows($exam_category_query);
-							if($Countexam_category_query>0)
+							while($exam_category_Fetch=mysql_fetch_array($exam_category_query))
 							{
-								while($exam_category_Fetch=mysql_fetch_array($exam_category_query))
-								{
-								 
 								$FetchExamCategoryId=$exam_category_Fetch['exam_category_id'];
 								$TotalOneSubject=0;
 								$TotalOneSubjectMax=0;
@@ -254,18 +250,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$TotalGetMarks+=$SubjectMarks;
 									$TotalOneSubject+=$SubjectMarks;
 									$OverAllTotalGetMarks+=$SubjectMarks;
-									
 								}
-								//** Exam Mapping Table ------- FInd Exam CategoryTYpe
-							?>
-									<th><?php echo $TotalOneSubject.'( '.$TotalOneSubjectMax.' )'; ?> </th>
-							<?php 
+								?>
+								<th><?php echo $TotalOneSubject;//.'( '.$TotalOneSubjectMax.' )'; ?> </th>
+							<?php
 							}
-							}
-							else
-							{for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
-						}
-						//** END Exam Mapping Table ------- FInd Exam Category 
+ 						}
+					}
+					//** END Exam Mapping Table ------- FInd Exam Category 
  						$MinumumPassingPercentage=(($TotalMaxMarks/100)*33);
 						if($TotalGetMarks<$MinumumPassingPercentage)
 						{
@@ -273,9 +265,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							$FailedInSubSubject[]=$sub_subject_id;
 							$FaildInSubject[]=$subject;
 						}
-						 
 						?>
-                         	<th><?php echo $TotalGetMarks.'( '.$TotalMaxMarks.' )'; ?></th>
+                         	<th><?php echo $TotalGetMarks;//.'( '.$TotalMaxMarks.' )'; ?></th>
                         <?php
 						//** FInd Grade
 						if($TotalGetMarks==0 || $TotalMaxMarks==0){$GetOneSubjectPercentage=0;}
@@ -286,12 +277,11 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							$GradeQuery=mysql_query("select `grade` from `master_grade` where `class_id`='$class_id' && `section_id`='$section_id' && `range_from`<='$GetOneSubjectPercentage' && `range_to`>='$GetOneSubjectPercentage'");
 							$FtcGradeQuery=mysql_fetch_array($GradeQuery);
 							$grade=$FtcGradeQuery['grade'];
-							
 						?>
                             <th><?php echo $grade;  ?></th>
-                      </tr>
-                        <?php
-					}
+						</tr>
+						<?php
+					 
 				//* END  Architacher Loop
  			}
  			///*- END SUVJECT ALLOCSTYION LOOP

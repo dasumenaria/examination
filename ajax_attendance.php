@@ -71,7 +71,7 @@ if((!empty($class)) && (empty($section)) ){
 	<div class="col-md-4">
 	   <div class="input-icon right">
 			<i class="fa"></i>
-			<select class="form-control ust" required name="exam_name">
+			<select class="form-control user2" required name="exam_name">
 				<option value="">---Select Exam---</option>
 					<?php 
 						$query2=mysql_query("select * from `master_term` ORder By `id`"); 
@@ -94,6 +94,6 @@ if((!empty($class)) && (empty($section)) ){
 
 
 <?php } if((!empty($class)) && (!empty($section)) && (!empty($term))){ ?>
-<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="attendance_sheet.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" target="_blank"><strong>ATTENDANCE</strong></a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="attendance_sheet.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" target="_blank"><strong>ATTENDANCE</strong></a>
 
 <?php } ?>

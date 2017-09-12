@@ -260,9 +260,9 @@ if($role_name=='Admin'){
 <?php if((!empty($cls)) && (!empty($sec)) && (!empty($sub)) && (!empty($trm)) && (!empty($cat))){ ?>
 
 
-<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="number_sheet.php?cls=<?php echo $cls; ?>&sec=<?php echo $sec; ?>&sub=<?php echo $sub; ?>&trm=<?php echo $trm; ?>&cat=<?php echo $cat; ?>" ><strong>Download Excel Sheet</strong></a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="number_sheet.php?cls=<?php echo $cls; ?>&sec=<?php echo $sec; ?>&sub=<?php echo $sub; ?>&trm=<?php echo $trm; ?>&cat=<?php echo $cat; ?>" > <i class="fa fa-download"></i> Download Excel</a>
 
-<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:2%" href="assign_marks.php?cls=<?php echo $cls; ?>&sec=<?php echo $sec; ?>&sub=<?php echo $sub; ?>&trm=<?php echo $trm; ?>&cat=<?php echo $cat; ?>" ><strong>Fill Marks </strong></a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:2" href="assign_marks.php?cls=<?php echo $cls; ?>&sec=<?php echo $sec; ?>&sub=<?php echo $sub; ?>&trm=<?php echo $trm; ?>&cat=<?php echo $cat; ?>" > <i class="fa fa-edit"></i>  Fill Marks  </a>
 
 
 <?php } ?>
