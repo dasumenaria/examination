@@ -231,35 +231,35 @@ function header_info_CBA($id,$exam_name)
          </tr>
  	</table>
 	<div style="width:100%">
-	<table style="width:100%;margin-top:20px; margin-left:1px; font-size:14px" cellpadding="1" border="0" cellspacing="10">
+	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
         <tr>
             <td style="width:15%" align="center" rowspan="6"><img src="img/CBALogo.png" height="120" width="100"/></td>
         </tr>
       <tr align="left">
       	<th style="width:15%">Scholar No.</th>
-		<td style="width:45%"><?php  echo $sch;?></td>
+		<td style="width:40%">: &nbsp;<?php  echo $sch;?></td>
         <td style="width:15%"></td><td></td>
       </tr>
 	  <tr align="left">
-		<th>Name of Student </th>
-		<td style="color:#F00"><strong><?php $nm=strtolower($nm); echo ucwords($nm);?></strong> </td>
+		<th>Student's Name</th>
+		<th> : &nbsp; <strong style="color:#F00"><?php $nm=strtolower($nm); echo ucwords($nm);?></strong> </th>
         <th>Roll No.</th>
-	    <td><?php echo  $rn;?></td>
+	    <th> : &nbsp; <?php echo  $rn;?></th>
 	  </tr>
 	  <tr align="left">
 		<th>Father's Name</th>
-		<td style="color:#F00"><strong><?php $f_nm=strtolower($f_nm); echo ucwords($f_nm);?></strong></td>
+		<th>: &nbsp; <strong style="color:#F00"><?php $f_nm=strtolower($f_nm); echo ucwords($f_nm);?></strong></th>
         <th>Class & Section</th>
-		<td><?php echo ucwords($cls).'-'.ucwords($sec);?></td>
+		<th> : &nbsp; <?php echo ucwords($cls).'-'.ucwords($sec);?></th>
 	  </tr>
 	  <tr align="left">
 		<th>Mother's Name</th>
-		<td style="color:#F00"><strong><?php $m_nm=strtolower($m_nm); echo ucwords($m_nm);?></strong></td>
+		<th> : &nbsp; <strong style="color:#F00"><?php $m_nm=strtolower($m_nm); echo ucwords($m_nm);?></strong></th>
         <th>Date of Birth</th>
-		<td><?php if($dob1!='0000-00-00') { echo $dob; }?></td>
+		<th> : &nbsp; <?php if($dob1!='0000-00-00') { echo $dob; }?></th>
 	  </tr>
 	  <tr align="center">
- 		<td align="center" colspan="10" style="font-size:18px"><strong>Report A - Scholastic Achievement</strong></td>
+ 		<th align="center" colspan="10" style="font-size:18px"><strong>Report A - Scholastic Achievement</strong></th>
 	  </tr>
 	</table>
 	</div>
