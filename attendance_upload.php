@@ -3,45 +3,42 @@ include("index_layout.php");
 include("database.php");
 include("authentication.php");
 $login_id=$_SESSION['id'];
-$school_id=$_SESSION['school_id'];
-///////////////////////////////EXCEL FILE UPLOAD//////////////////////////////////////////
+ ///////////////////////////////EXCEL FILE UPLOAD//////////////////////////////////////////
 	
 if(isset($_POST["Import"]))
 {
-	 $session=$_SESSION['sess'];
-	 $term=$_POST['exam_name'];
-     //First we need to make a connection with the database
+		$term=$_POST['exam_name'];
+		//First we need to make a connection with the database
  		$filename=$_FILES["file"]["tmp_name"];
 		$fil=$_FILES['file']['name'];
 		$ext=pathinfo($fil, PATHINFO_EXTENSION);
-    if(($_FILES["file"]["size"] > 0) && ($ext=='csv'))
-    {
-		$file = fopen($filename, "r");
-		$emapData = fgetcsv($file, 10000, ",");
-		$emapData=array_filter($emapData);
-		$count = 0;                                         // add this line
-		while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
-		{ 
-			$count++;                                      // add this line
-			if($count>0){ 
-				if(!empty($emapData[2]))
-				{
-					mysql_query("delete from`attendance` where `scholar_no`='$emapData[3]' && `term`='$term'  ");
-					$sql1 = "INSERT into attendance(scholar_no,term,attendance) values ('$emapData[3]','$term','$emapData[5]')";
-					mysql_query($sql1);
-					$sql1;
-				}
-			}     
+		if(($_FILES["file"]["size"] > 0) && ($ext=='csv'))
+		{
+			$file = fopen($filename, "r");
+			$emapData = fgetcsv($file, 10000, ",");
+			$emapData=array_filter($emapData);
+			$count = 0;                                         // add this line
+			while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
+			{ 
+				$count++;                                      // add this line
+				if($count>0){ 
+					if(!empty($emapData[3]))
+					{
+						mysql_query("delete from`attendance` where `scholar_no`='$emapData[3]' && `term`='$term'");
+						$sql1 = "INSERT into attendance(scholar_no,term,attendance,max_attendance) values ('$emapData[3]','$term','$emapData[5]','$emapData[4]')";
+						mysql_query($sql1);
+						$sql1;
+					}
+				}     
+			}
+			fclose($file);
+			header('Location: attendance_upload.php');
+		}  	
+		else
+		{
+			$msg=1;
+			echo 'Invalid File:Please Upload CSV File';
 		}
- 		fclose($file);
-        //echo 'CSV File has been successfully Imported';
-         header('Location: attendance_upload.php');
-    }  	
-    else{
-		$msg=1;
-        echo 'Invalid File:Please Upload CSV File';
-}
- 
 }
 
  ?>
