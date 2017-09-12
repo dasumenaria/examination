@@ -63,7 +63,7 @@ if((!empty($class)) && (empty($section)) ){
 		 
 <?php } if((!empty($class)) && (!empty($section)) && (empty($term))){?>
 
-<a style="padding: 3px 15px; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="cross_section_list.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>" target="_blank"><strong>View Report</strong></a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="cross_section_list.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>" target="_blank"><strong>View Report</strong></a>
 
 
 <?php } ?>
