@@ -52,7 +52,7 @@ tr{
 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Master | Class</title>
+<title>Master | Attendance</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -102,7 +102,7 @@ tr{
 			<div class="portlet box pink">
 			<div class="portlet-title">
 				<div class="caption"  style="text-align:center;">
-					<h3 color="black" style="color:#0078D7 !important;"><i class="icon-puzzle"></i> Edit DetailS Of Class: <?php echo $cl_romn; ?> and Section: <?php echo $sc_name; ?></h3>
+					<h3 color="black" style="color:#0078D7 !important;"><i class="icon-puzzle"></i> Edit Attendance Of Class: <?php echo $cl_romn; ?> and Section: <?php echo $sc_name; ?></h3>
 				</div>
 			</div>
 			<div class="portlet-body form">
@@ -128,8 +128,11 @@ tr{
 									
 									?>
 									
-									<th style="text-align:center" colspan="<?php echo $col; ?>">
-										 Attendance
+									<th style="text-align:center" >
+										 Meeting Attend
+									</th>
+									<th style="text-align:center" >
+										 Total Meeting
 									</th>
 									  
 								</tr> 
@@ -137,6 +140,9 @@ tr{
 									<th style="text-align:center">
 										 Value
 									</th> 
+									<th style="text-align:center">
+										 Maximum
+									</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -156,18 +162,24 @@ tr{
 									<td><?php echo $name; ?></td>
 								<?php 
 								
-									$qst=mysql_query("select `attendance`,`id` from `attendance` where `scholar_no`='$scholar_no' && `term`='$exam_id'  order by `id` DESC");
+									$qst=mysql_query("select `attendance`,`id`,`max_attendance` from `attendance` where `scholar_no`='$scholar_no' && `term`='$exam_id'  order by `id` DESC");
 									$fst=mysql_fetch_array($qst);
 									
 									$retrive_type=$sub_subject_name;
 									$id=$fst['id'];
 									$value_sub=$fst['attendance'];
+									$max_attendance=$fst['max_attendance'];
 										 
 									?>
 									
 									<td style="text-align:center">
 										
- <a href="#" class="number" max="<?php echo $max_marks; ?>" stdnt_id="<?php echo $id; ?>" stdnt_sub="attendance" data-type="text" data-pk="1" data-original-title="Enter Number"><?php if(!empty($value_sub)){ echo $value_sub;} else{ echo"-";} ?></a>
+ <a href="#" class="number" max="<?php echo $max_attendance; ?>" stdnt_id="<?php echo $id; ?>" stdnt_sub="attendance" data-type="text" data-pk="1" data-original-title="Enter Number"><?php if(!empty($value_sub)){ echo $value_sub;} else{ echo"-";} ?></a>
+									</td>
+									
+									<td style="text-align:center">
+										
+ <a href="#" class="number" max="<?php echo $max_marks; ?>" stdnt_id="<?php echo $id; ?>" stdnt_sub="max_attendance" data-type="text" data-pk="1" data-original-title="Enter Number"><?php if(!empty($max_attendance)){ echo $max_attendance;} else{ echo"-";} ?></a>
 									</td>
 									 
 									<?php  } ?>

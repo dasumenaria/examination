@@ -99,7 +99,7 @@ $exam_id=$_POST['exm'];
 							<div class="col-md-4">
 							   <div class="input-icon right">
 									<i class="fa"></i>
-									<select class="form-control ust" required name="exam_name">
+									<select class="form-control ust" required name="exm">
 										<option value="">---Select Exam---</option>
 											<?php 
 												$query2=mysql_query("select * from `master_term` ORder By `id`"); 

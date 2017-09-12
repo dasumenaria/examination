@@ -64,7 +64,7 @@ if(isset($_POST['view_report']))
 					
 					<?php if($show_report==1)
 					{
-						$query2=mysql_query("select * from `master_term`where `id` = '$term'"); 
+						$query2=mysql_query("select * from `master_term` where `id` = '$term'"); 
 						$fetch2=mysql_fetch_array($query2);
 						$exam_name=$fetch2['name'];
 						$st=mysql_query("select * from `school`");
@@ -97,19 +97,20 @@ if(isset($_POST['view_report']))
   							$ftc_class=mysql_query("select * from `attendance` where `term`='$term'");
 							while($fetch=mysql_fetch_array($ftc_class))
 							{
-								$f++;
+								
 								$id=$fetch['id']; 
 								$scholar_no=$fetch['scholar_no'];
-								$attendance=$fetch['attendance']; 
+								$attendance=$fetch['attendance'];
+								$max_attendance=$fetch['max_attendance'];
 								$term=$fetch['term'];
 							if(!empty($attendance))
 							{
-								$attendanceExplode=explode('/',$attendance);
-								$attendanceMarks=$attendanceExplode[0];
-								$attendanceMaxMarks=$attendanceExplode[1];
-								@$AttendancePrecentage=$attendanceMarks*100/$attendanceMaxMarks;
-								if($AttendancePrecentage==100)
+								$attendanceMarks=$attendance;
+								$attendanceMaxMarks=$max_attendance;
+								@$AttendancePrecentage=(($attendanceMarks/$attendanceMaxMarks)*100);
+								if($attendance==$max_attendance)
 								{
+									$f++;
 									$query=mysql_query("select * from `student` where `scholar_no`='$scholar_no'");
 									$fetch=mysql_fetch_array($query);
 									$id=$fetch['id'];

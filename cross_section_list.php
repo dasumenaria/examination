@@ -25,7 +25,7 @@ $section_name=$ft3['section'];
 <head>
 <?php css();?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Index</title>
+<title>Report | Cross List</title>
 <style>
 .table>thead>tr>th{
 	font-size:12px !important;
@@ -48,7 +48,7 @@ $section_name=$ft3['section'];
 			 <div class="portlet box blue">
 			<div class="portlet-title printdata">
 				<div class="caption">
-					<i class="icon-puzzle"></i> Roll No List
+					<i class="icon-puzzle"></i> Section Wise Cross List 
 				</div>
 			</div>			 
 		 
@@ -64,21 +64,25 @@ $section_name=$ft3['section'];
 						<table style="text-align:center;font-size:13px;" class="table table-bordered" width="100%" align="left">
 							<thead>
 								<tr>
-									<th>Sr.No</th>
-									<th>Scholar No</th>
-									<th>Roll No</th>
-									<th>Student Name</th>
-									<th>Father's Name</th>
-									<th>Attendance</th>
-									<th>Marks</th>
-									<th>Percentage</th>
-									<th>Status</th>
-									<th>Remark</th>
+									<th rowspan="2">Sr.No</th>
+									<th rowspan="2">Scholar No</th>
+									<th rowspan="2">Roll No</th>
+									<th rowspan="2">Student Name</th>
+									<th rowspan="2">Father's Name</th>
+									<th colspan="2" style="text-align:center !important;">Attendance</th>
+									<th rowspan="2">Marks</th>
+									<th rowspan="2">Percentage</th>
+									<th rowspan="2">Status</th>
+									<th rowspan="2">Remark</th>
+								</tr>
+								<tr>
+									<th>Attend</th>
+									<th>Meeting</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php 
-								$set=mysql_query("select * from `student` where `class_id`='$class_id' && `section_id`='$section_id'");
+								$set=mysql_query("select * from `student` where `class_id`='$class_id' && `section_id`='$section_id' ORDER BY `name` ASC");
 								while($fet=mysql_fetch_array($set))
 								{
 									$i++;
@@ -96,10 +100,16 @@ $section_name=$ft3['section'];
 									if($final_status=='Pass'){
 										$count_promote++;
 									}
-									$set3=mysql_query("select `attendance` where `scholar_no`='$scholar_no'");
-									$fet3=mysql_fetch_array($set3);
-									
+									$total_attendance=0;
+									$total_max_attendance=0;
+									$set3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `scholar_no`='$scholar_no'");
+									while($fet3=mysql_fetch_array($set3))
+									{
 									$attendance=$fet3['attendance'];
+									$max_attendance=$fet3['max_attendance'];
+									$total_attendance+=$attendance;
+									$total_max_attendance+=$max_attendance;
+									}
 									?>
 									<tr>
 										<td><?php echo $i; ?></td>
@@ -107,7 +117,8 @@ $section_name=$ft3['section'];
 										<td><?php echo $roll_no; ?></td>
 										<td><?php echo $name; ?></td>
 										<td><?php echo $father_name; ?></td>
-										<td><?php echo $attendance; ?></td>
+										<td><?php echo $total_attendance; ?></td>
+										<td><?php echo $total_max_attendance; ?></td>
 										<td><?php echo $total_marks_obtained; ?></td>
 										<td><?php echo $percentage; ?></td>
 										<td><?php echo $status; ?></td>

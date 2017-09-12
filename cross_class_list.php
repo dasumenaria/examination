@@ -20,7 +20,7 @@ $class_name=$ft2['roman'];
 <head>
 <?php css();?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Index</title>
+<title>Report | Cross List</title>
 <style>
 .table>thead>tr>th{
 	font-size:12px !important;
@@ -43,7 +43,7 @@ $class_name=$ft2['roman'];
 			 <div class="portlet box blue">
 			<div class="portlet-title printdata">
 				<div class="caption">
-					<i class="icon-puzzle"></i> Roll No List
+					<i class="icon-puzzle"></i> Class Wise Cross List 
 				</div>
 			</div>			 
 		 
@@ -58,22 +58,26 @@ $class_name=$ft2['roman'];
 						<table style="text-align:center;font-size:13px;" class="table table-bordered" width="100%" align="left">
 							<thead>
 								<tr>
-									<th>Sr.No</th>
-									<th>Scholar No</th>
-									<th>Roll No</th>
-									<th>Student Name</th>
-									<th>Father's Name</th>
-									<th>Section</th>
-									<th>Attendance</th>
-									<th>Marks</th>
-									<th>Percentage</th>
-									<th>Status</th>
-									<th>Remark</th>
+									<th rowspan="2">Sr.No</th>
+									<th rowspan="2">Scholar No</th>
+									<th rowspan="2">Roll No</th>
+									<th rowspan="2">Student Name</th>
+									<th rowspan="2">Father's Name</th>
+									<th rowspan="2">Section</th>
+									<th colspan="2" style="text-align:center !important;">Attendance</th>
+									<th rowspan="2">Marks</th>
+									<th rowspan="2">Percentage</th>
+									<th rowspan="2">Status</th>
+									<th rowspan="2">Remark</th>
+								</tr>
+								<tr>
+									<th>Attend</th>
+									<th>Meeting</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php 
-								$set=mysql_query("select * from `student` where `class_id`='$class_id'");
+								$set=mysql_query("select * from `student` where `class_id`='$class_id' ORDER BY `name` ASC");
 								while($fet=mysql_fetch_array($set))
 								{
 									$i++;
@@ -97,10 +101,16 @@ $class_name=$ft2['roman'];
 									if($final_status=='Pass'){
 										$count_promote++;
 									}
-									$set3=mysql_query("select `attendance` where `scholar_no`='$scholar_no'");
-									$fet3=mysql_fetch_array($set3);
-									
+									$total_attendance=0;
+									$total_max_attendance=0;
+									$set3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `scholar_no`='$scholar_no'");
+									while($fet3=mysql_fetch_array($set3))
+									{
 									$attendance=$fet3['attendance'];
+									$max_attendance=$fet3['max_attendance'];
+									$total_attendance+=$attendance;
+									$total_max_attendance+=$max_attendance;
+									}
 									?>
 									<tr>
 										<td><?php echo $i; ?></td>
@@ -109,7 +119,8 @@ $class_name=$ft2['roman'];
 										<td><?php echo $name; ?></td>
 										<td><?php echo $father_name; ?></td>
 										<td><?php echo $section_name; ?></td>
-										<td><?php echo $attendance; ?></td>
+										<td><?php echo $total_attendance; ?></td>
+										<td><?php echo $total_max_attendance; ?></td>
 										<td><?php echo $total_marks_obtained; ?></td>
 										<td><?php echo $percentage; ?></td>
 										<td><?php echo $status; ?></td>
