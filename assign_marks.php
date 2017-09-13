@@ -40,7 +40,44 @@ $trm_name=$fter3['name'];
 
 if(isset($_POST['sub'])){
 
-echo "<meta http-equiv='refresh' content='0;url=marks.php'>";
+//echo "<meta http-equiv='refresh' content='0;url=marks.php'>";
+$class_id=$_POST['class_id'];
+$section_id=$_POST['section_id'];
+$subject_id=$_POST['subject_id'];
+$sub_subject_id=$_POST['sub_subject_id'];
+$term_id=$_POST['term'];
+$category=$_POST['category'];
+$marks=$_POST['marks'];
+
+$query=mysql_query("select * from `student` where `class_id`='$class_id' && `section_id`='$section_id' order By `name`"); $i=0;
+	 while($fets=mysql_fetch_array($query))
+		{ $f++; $i++;
+			$roll_no=$fets['roll_no'];
+			$scholar_no=$fets['scholar_no'];
+			
+			$set=mysql_query("select * from `exam_mapping` where `class_id`='$class_id'  && `section_id`='$section_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `term_id`='$term_id' && `exam_category_id`='$category'");
+				while($fet=mysql_fetch_array($set))
+				{
+					$exam_category_type=$fet['exam_category_type_id'];
+					
+					$student_marks_data=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `term_id`='$term_id' && `exam_category_id`='$category' && `master_exam_type_id`='$exam_category_type'");
+					$count=mysql_num_rows($student_marks_data);
+					$student_dat=mysql_fetch_array($student_marks_data);
+					$update_id=$student_dat['id'];
+					$update_marks=$marks[$scholar_no][$exam_category_type];
+					
+					if(!empty($count)){
+						
+						mysql_query("update `student_marks` SET `scholar_no`='$scholar_no',`subject_id`='$subject_id',`sub_subject_id`='$sub_subject_id',`term_id`='$term_id',`exam_category_id`='$category',`master_exam_type_id`='$exam_category_type',`marks`='$update_marks' where `id`='$update_id'");
+					}else if(empty($count)){
+						
+						mysql_query("insert into `student_marks` SET `scholar_no`='$scholar_no',`subject_id`='$subject_id',`sub_subject_id`='$sub_subject_id',`term_id`='$term_id',`exam_category_id`='$category',`master_exam_type_id`='$exam_category_type',`marks`='$update_marks'");
+					}
+					
+				}	
+			
+		}	
+
 }
 
 ?>
@@ -130,7 +167,7 @@ echo "<meta http-equiv='refresh' content='0;url=marks.php'>";
 					$fet1=mysql_fetch_array($set1);
 					$exam=$fet1['Exam'];
 				?>
-                <td><input class="number number_only check_max" maxmarks="<?php echo $max_marks;?>" required name="marks" examcategorytype="<?php echo $exam_category_type; ?>" scholarno="<?php echo $scholar_no; ?>" value="<?php echo $student_marks_data_single_marks; ?>">
+                <td><input class="number number_only check_max" maxmarks="<?php echo $max_marks;?>" required name="marks[<?php echo $scholar_no; ?>][<?php echo $exam_category_type; ?>]" examcategorytype="<?php echo $exam_category_type; ?>" scholarno="<?php echo $scholar_no; ?>" value="<?php echo $student_marks_data_single_marks; ?>">
 				<input class="form-control" type="hidden" name="class_id" value="<?php echo $class; ?>">
                 <input class="form-control" type="hidden" name="section_id" value="<?php echo $section; ?>">
                 <input class="form-control" type="hidden" name="subject_id" value="<?php echo $subject; ?>">
@@ -189,7 +226,7 @@ jQuery(document).ready(function() {
 	});
 
 	$(".number").on('keyup',function(){	
-		var marks=$(this).closest('td').find("input[name=marks]").val();
+		var marks=$(this).val();
 		if(marks>0){
 		var class_id=$(this).closest('td').find("input[name=class_id]").val();
 		var section_id=$(this).closest('td').find("input[name=section_id]").val();
@@ -199,14 +236,14 @@ jQuery(document).ready(function() {
 		var category=$(this).closest('td').find("input[name=category]").val();
 		var examcategorytype=$(this).closest('td').find('input').attr('examcategorytype');
 		var scholarno=$(this).closest('td').find('input').attr('scholarno');
-		var marks=$(this).closest('td').find("input[name=marks]").val();
+		var marks=$(this).val();
 		
-		$.ajax({
+		/* $.ajax({
 				url: "update_assign_marks.php?class_id="+class_id+"&section_id="+section_id+"&subject_id="+subject_id+"&sub_subject_id="+sub_subject_id+"&term="+term+"&category="+category+"&examcategorytype="+examcategorytype+"&scholarno="+scholarno+"&marks="+marks,
 					 
 				}).done(function(response) {
 			   $("#data").html(""+response+"");
-			});
+			}); */
 		}
 	});
 	
