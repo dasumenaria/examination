@@ -227,10 +227,34 @@ function header_info_CBA($id,$exam_name)
     <table width="100%" border="0">
         <tr>
         	<td>
-               <img width="100%"  height="220" src="img/cba_marksheet.png"/>
+            	<div style="width:10%;text-align:left; margin-top:10px; margin-left:10px"> 
+                    <img width="90"  height="90" src="img/cbselogo.png"/>
+                </div>
             </td>
-         </tr>
- 	</table>
+            <td>
+            	<div  style="font-size:25px; text-align:center;">
+					<?php 
+                    $schl=mysql_query("select * from `school`");
+                    $ftc_schl=mysql_fetch_array($schl);
+                    ?>
+                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?><br />
+					<?php echo $ftc_schl['address'];?></strong><br/>
+                 </div>
+            </td>
+            <td>
+            	<div style="width:10%;text-align:left; margin-top:10px; margin-right:10px"> 
+                    <img width="90"  height="90" src="img/<?php echo $ftc_schl['logo'];?>"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="3" align="center">
+            	<div  style="font-size:25px; text-align:center;">
+                	<strong>Academic Session: ( <?php echo $ses; ?> )</strong>
+                </div>
+            </td>
+        </tr>
+	</table>
 	<div style="width:100%">
 	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
         <tr>
