@@ -204,6 +204,7 @@ function header_info_CBA($id,$exam_name)
 		$m_nm=$row['mother_name'];
 		$class_id=$row['class_id'];
 		$section=$row['section_id'];
+		$photo_path=$row['photo_path'];
 		$dob1=$row['dob'];
 		$padd=$row['address'];
 		$rn=$row['roll_no'];
@@ -233,7 +234,7 @@ function header_info_CBA($id,$exam_name)
 	<div style="width:100%">
 	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
         <tr>
-            <td style="width:15%" align="center" rowspan="6"><img src="img/CBALogo.png" height="120" width="100"/></td>
+            <td style="width:15%" align="center" rowspan="6"><img src="user/<?php echo $photo_path;?>" height="120" width="100"/></td>
         </tr>
       <tr align="left">
       	<th style="width:15%">Scholar No.</th>
