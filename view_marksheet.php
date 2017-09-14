@@ -632,12 +632,18 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				<td></td>
 			</tr>
 		</table>
-		<table width="100%" height="240" border="1"  cellspacing="0" cellpadding="0"  >
+		<table width="100%"   border="0"  cellspacing="0" cellpadding="0"  >
             <tr>
-                <th width="25%">image <br><br> Class Teacher</th>
-                <th width="25%">image <br><br> Examination incharge</th>
-                <th width="25%">image <br><br>School Seal</th>
-                <th width="25%">image <br><br>Sign of Principal</th>
+                <th height="100px" width="25%">image  </th>
+                <th width="25%">image </th>
+                <th width="25%">image </th>
+                <th width="25%">image </th>
+			</tr>
+			 <tr>
+                <th height="10px" width="25%">Class Teacher</th>
+                <th width="25%">Examination incharge</th>
+                <th width="25%">School Seal</th>
+                <th width="25%">Sign of Principal</th>
 			</tr>
 			 
 		</table>
