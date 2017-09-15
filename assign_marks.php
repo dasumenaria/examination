@@ -204,7 +204,7 @@ jQuery(document).ready(function() {
 	<!--- NUMBER VALIDATION  ------>		
 	$('.number_only').live('keyup',function(){
 		var inputtxt=  $(this).val();
-		var numbers =  /^[0-9]*\.?[0-9]*$/;
+		var numbers =  /^[0-9ATML]*\.?[0-9]*$/;
 		if(inputtxt.match(numbers))  
 		{}else  
 		{  

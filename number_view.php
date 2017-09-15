@@ -8,7 +8,7 @@ if(isset($_POST['sub'])){
 $class_id=$_POST['cls'];
 $section_id=$_POST['roman'];
 $exam_id=$_POST['exm'];
-$cat=$_POST['cat'];
+$cat=$_POST['cat_id'];
  
   	echo "<script>
     location='number_view.php';

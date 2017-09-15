@@ -67,7 +67,7 @@ if(!empty($class_id) && (!empty($section_id)) && (empty($sub)) && (empty($trm)))
 									  $sub_subject_name=$qqt['name'];
 									
 									?>
-									<option value="<?php echo $sub_id; ?>"><?php echo $sub_name; ?><?php if(!empty($sub_subject_name)){ echo '-'.$sub_subject_name; } ?></option>
+									<option value="<?php echo $sub_id; ?>,<?php echo $sub_subject_id; ?>"><?php echo $sub_name; ?><?php if(!empty($sub_subject_name)){ echo '-'.$sub_subject_name; } ?></option>
 									<?php } ?>
 									
 									<?php 
