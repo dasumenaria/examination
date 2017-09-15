@@ -223,31 +223,27 @@ function header_info_CBA($id,$exam_name)
 		foreach($ses_name as $ses){
 			$ses;
 		}
+		$schl=mysql_query("select * from `school`");
+		$ftc_schl=mysql_fetch_array($schl);
+                
 	?>
-    <table width="100%" border="0">
+    <table width="70%" border="0" style="margin-left:15%;">
         <tr>
-        	<td>
-            	<div style="width:10%;text-align:left; margin-top:10px; margin-left:10px"> 
-                    <img width="90"  height="90" src="img/cbselogo.png"/>
+        	<td width="25%" rowspan="2">
+            	<div align="right"> 
+                    <img width="120"  height="120" style="margin-top:10px" src="img/<?php echo $ftc_schl['logo'];?>"/>
                 </div>
             </td>
             <td>
-            	<div  style="font-size:25px; text-align:center;">
-					<?php 
-                    $schl=mysql_query("select * from `school`");
-                    $ftc_schl=mysql_fetch_array($schl);
-                    ?>
-                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?><br />
-					<?php echo $ftc_schl['address'];?></strong><br/>
+            	<div  style="font-size:35px; text-align:center;">
+                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?></strong>
                  </div>
+				 <div  style="font-size:21px; text-align:center;"><strong style="font-family:revue-bt"><?php echo $ftc_schl['address'];?></strong> 
+				 </div>
             </td>
-            <td>
-            	<div style="width:10%;text-align:left; margin-top:10px; margin-right:10px"> 
-                    <img width="90"  height="90" src="img/<?php echo $ftc_schl['logo'];?>"/>
-                </div>
-            </td>
+             
         </tr>
-        <tr>
+        <tr> 
         	<td colspan="3" align="center">
             	<div  style="font-size:25px; text-align:center;">
                 	<strong>Academic Session: ( <?php echo $ses; ?> )</strong>

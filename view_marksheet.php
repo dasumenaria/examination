@@ -32,15 +32,25 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
     .a1
     {width: 1000px; height: auto; border: 1px solid; font-family: Arial, Helvetica, sans-serif; page-break-after:always;
     }
-    .center_align {	text-align:center; }
+	.center_align {	text-align:center; }
     table
     {
-    border-collapse:collapse;
+		border-collapse:collapse;
     }
     div
     {
-    border-collapse:collapse;
+		border-collapse:collapse;
     }
+	.header_font
+	{
+		font-weight:bold;
+		font-size:15px;
+	}
+	.header_sub
+	{
+		font-weight:bold;
+		font-size:13px;
+	}
     </style>
 </head>
 <!-- BEGIN BODY -->
@@ -65,7 +75,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
   
 	<!-- Header End ---> 
     <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1">
-         <tr>
+         <tr class="header_font">
          	<th rowspan="3">S.No</th>
             <th height="33"  width="22%" style="margin-left:5px">Subject / Exam</th>
 				<?php 
@@ -105,7 +115,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			<th rowspan="3">Grade</th>
         </tr>
         <tr>
-        	<td  height="30px" align="right"><strong>MAXIMUM</strong></td>
+        	<td class="header_font" height="30px" align="center"><strong>Maximum</strong></td>
             <?php 
 				$totalMx=0;
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
@@ -140,7 +150,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
             <td align="center"><strong><?php echo $totalMx;?></strong></td>
         </tr>
         <tr>
-        	<td height="30px" align="right"><strong>MINIMUM</strong></td>
+        	<td height="30px" class="header_font" align="center"><strong>Minimum</strong></td>
              <?php 
 			 	
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
@@ -191,6 +201,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				if(empty($subject_id))
 				{
 					$subject_id=$ftc_subject['elective'];
+					
+					$ElectiveQuery=mysql_query("select * from `elective` where `scholar_id`='$scholar_no' && `subject_id`='$subject_id'");
+					$ElectiveQueryCount=mysql_num_rows($ElectiveQuery);
+					if($ElectiveQueryCount==0)
+					{
+						continue;
+					}
+						
 				}
 				$sub_subject_id=$ftc_subject['sub_subject_id'];
 				
@@ -210,7 +228,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				?>
                  <tr>
                  	<th><?php echo $SNo; ?></th>
-                    <th height="33" width="8%" style="margin-left:5px"><?php echo $subject; if(!empty($sub_subject_name)){ ?>-<?php echo $sub_subject_name; } ?></th> 
+                    <th height="33" width="8%" class="header_sub" style="margin-left:5px"><?php echo $subject; if(!empty($sub_subject_name)){ ?>-<?php echo $sub_subject_name; } ?></th> 
                 <?php
 					$TotalMaxMarks=0;
 					$TotalGetMarks=0;
