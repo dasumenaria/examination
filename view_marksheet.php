@@ -333,6 +333,12 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				if(empty($subject_id))
 				{
 					$subject_id=$ftc_subject['elective'];
+					$ElectiveQuery=mysql_query("select * from `elective` where `scholar_id`='$scholar_no' && `subject_id`='$subject_id'");
+					$ElectiveQueryCount=mysql_num_rows($ElectiveQuery);
+					if($ElectiveQueryCount==0)
+					{
+						continue;
+					}
 				}
 				$sub_subject_id=$ftc_subject['sub_subject_id'];
 				
@@ -431,13 +437,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			<tr>
 				<td width="63%">
 					<table width="100%"  cellspacing="0px" cellpadding="0px" border="1">
-						<tr>
+						<tr class="header_font">
 							 <th style="height:55px" >Report B - Attendance</th>
 							 <?php 
-							$st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
+							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
 							while($ft=mysql_fetch_array($st))
 							{
-								$heading_term=$ft['term_id'];
+								$heading_term=$ft['term'];
 								$st3=mysql_query("select `name` from `master_term` where `id`='$heading_term'");
 								$ft3=mysql_fetch_array($st3);
 								$heading_name=$ft3['name'];
@@ -449,13 +455,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th>Over All</th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" >Number of Meetings</th>
+							<th style="height:55px" class="header_sub">Number of Meetings</th>
 							<?php 
 							$totalAttend=0;
-							$st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
+							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
 							while($ft=mysql_fetch_array($st))
 							{
-								$heading_term=$ft['term_id'];
+								$heading_term=$ft['term'];
 								$st3=mysql_query("select `max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'");
 								$ft3=mysql_fetch_array($st3);
 								$max_attendance=$ft3['max_attendance'];
@@ -468,13 +474,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th><?php echo $totalAttend;?></th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" >No. of Meetings <br> on work present</th>
+							<th style="height:55px" class="header_sub" >No. of Meetings <br> on work present</th>
 							<?php 
 							$totalAttendP=0;
-							$st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
+							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
 							while($ft=mysql_fetch_array($st))
 							{
-								$heading_term=$ft['term_id'];
+								$heading_term=$ft['term'];
 								$st3=mysql_query("select `attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'");
 								$ft3=mysql_fetch_array($st3);
 								$attendance=$ft3['attendance'];
@@ -487,14 +493,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th><?php echo $totalAttendP;?></th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" >Percentage</th>
+							<th style="height:55px" class="header_sub" >Percentage</th>
 							<?php 
 							$totalAttendP=0;
 							$totalAttendPGET=0;
-							$st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
+							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
 							while($ft=mysql_fetch_array($st))
 							{
-								$heading_term=$ft['term_id'];
+								$heading_term=$ft['term'];
 								$st3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'	");
 								$ft3=mysql_fetch_array($st3);
 								$attendance=$ft3['attendance'];
@@ -587,23 +593,23 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						mysql_query("insert into `student_result` SET `class_id`='$class_id',`section_id`='$section_id',`roll_no`='$StudentRollNo',`scholar_no`='$scholar_no',`status`='$status',`final_status`='$FinalStatusOfResult',`per`='$OverAllPersentage',`total`='$OverAllTotalGetMarks',`term_id`='$term_id',`total_marks`='$OverAllTotalMaxMarks',`next_class_id`='$next_class'");
 						
 						?>
-						<tr>
+						<tr class="header_sub">
                             <td style="text-align:left;height:43px; width:50%; padding-left:15px;">Result</td>	
                             <td><b><?php echo $FinalStatusOfResult; ?></b></td>	
                         </tr>
-						<tr>
+						<tr class="header_sub">
                             <td style="text-align:left; height:44px; padding-left:15px;">Compartment</td>
                             <td><?php $Compartment;?></td>
                         </tr>
-						<tr>
+						<tr class="header_sub">
                             <td style="text-align:left; height:44px; padding-left:15px;">Detained in</td>
                             <td><?php echo $Detained;?></td>
                         </tr>
-						<tr>
+						<tr class="header_sub">
                             <td style="text-align:left; height:44px; padding-left:15px;">Compartment Result</td>
                             <td>-</td>
                         </tr>
-						<tr>
+						<tr class="header_sub">
                             <td style="text-align:left; height:43px; padding-left:15px;">Promotion Granted to</td>
                             <td><?php echo $Promotion;?></td>
                         </tr>
@@ -611,7 +617,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				</td>
 			<tr>
 		</table>
-		<table width="100%" height="240" border="1"  cellspacing="0" cellpadding="0"  >
+		<table width="100%" height="150" border="1" cellspacing="0" cellpadding="0" class="header_sub" >
             <tr>
                 <th width="50%" colspan="2">Final Report</th>
 				<th width="50%"><?php echo $status; ?></th>
@@ -650,7 +656,36 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				<td></td>
 			</tr>
 		</table>
-		<table width="100%"   border="0"  cellspacing="0" cellpadding="0"  >
+		<table width="100%" style="margin-bottom:10px"  border="0"  cellspacing="0" cellpadding="0"  >
+			<tr>
+            	<td colspan="4" align="center"> 
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <tr class="header_font">
+                            <td width="202" height="35"><strong>MARKS RANGE</strong></td>
+                            <td width="124"><strong>GRADE</strong></td>
+                         </tr>
+						<?php 
+                        $sst=mysql_query("select * from `master_grade` ORDER BY `range_to` DESC");
+                        while($fft=mysql_fetch_array($sst))
+                        {
+                            $range_from=$fft['range_from'];
+                            $range_to=$fft['range_to'];
+                            $range_grade=$fft['grade'];
+                             ?>
+                            <tr>
+                                <td height="30">
+                                	<?php echo $range_from; ?>-<?php echo $range_to; ?>
+                                </td>
+                                <td style="text-align:center;">
+                                	<?php echo $range_grade; ?>
+                                </td>
+                             </tr>
+                             <?php
+						}
+						?>
+                    </table>
+                </td>
+            </tr>
             <tr>
                 <th height="100px" width="25%">image  </th>
                 <th width="25%">image </th>
