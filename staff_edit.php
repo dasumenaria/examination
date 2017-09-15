@@ -27,22 +27,23 @@ if(isset($_POST['sub_cls'])){
 	
 	$user_id=$_GET['user'];
 	$class_id=$_POST['cls']; 
-	$section_id=$_POST['sec'];  
+	$section_id=$_POST['sec'];   
 	$f1=0;
 		$que=mysql_query("select * from `master_section` order by `id`");
 		while($fet=mysql_fetch_array($que))
 		{$f1++;
 
 			$sec_id=$fet['id'];
-			$sec_name=$fet['roman'];
+			  $sec_name=$fet['roman'];  
 			$i=0;
 				mysql_query("Delete from `staff_class` where `class_id`='$class_id' && `section_id`='$sec_id' && `staff_id`='$user_id'");
 				  $qur1=mysql_query("select * from `subject` ORDER BY `id`");
 				  while($fet1=mysql_fetch_array($qur1))
 				  {
-					  $sub_id=$fet1['id'];
+					    $sub_id=$fet1['id'];  
 					   $qqqq= (int)@$_POST["check_".$sec_id."_".$sub_id];
 					  if($qqqq==1){
+						   
 						 mysql_query("insert into `staff_class` SET `class_id`='$class_id',`section_id`='$sec_id',`subject`='$sub_id',`staff_id`='$user_id'");
 				  }
 			  }

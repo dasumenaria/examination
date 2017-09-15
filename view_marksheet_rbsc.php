@@ -61,13 +61,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 	//* Header Started
 		 ?>
 <div class="a1">
-   		<?php header_info_CBA($id,$exam_name);?><br>
+   		<?php header_info_XAVIER($id,$exam_name);?><br>
   
 	<!-- Header End ---> 
     <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1">
          <tr>
-         	<th rowspan="3">S.No</th>
-            <th height="33" colspan="2" style="margin-left:5px">Subject / Exam</th>
+         	<th rowspan="2">S.No</th>
+            <th height="33" rowspan="2" colspan="2" style="margin-left:5px">Subject / Exam</th>
 				<?php 
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -80,33 +80,36 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					$category_wisecolumn=mysql_query("select * from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
 					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 					{
+						
 						$categoryidd=$ftc_categorywise['category_id'];	
  						$st4=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
 						$countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
 						{	
 							while($ft4=mysql_fetch_array($st4))
-							{	$colspan++;
+							{	
 								$find_id=$ft4['exam_category_id'];
 								$st7=mysql_query("select `name` from `exam_category` where `id`='$find_id'");
 								$ft7=mysql_fetch_array($st7);
 								$category_name=$ft7['name'];
+								$colspan++;
 							} 	
 						}
 						else
 						{ for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
+						
 					}
+					if($colspan==1){$colspan=0;}
 					?>
-					<th colspan="2<?php //echo $colspan; ?>"><b><?php echo $heading_name; ?></b></th>
+					<th colspan="<?php echo $colspan+2; ?>"><b><?php echo $heading_name; ?></b></th>
 					<?php
                 }
                 ?>	
-            <th>Total</th>
-			<th rowspan="3">Grade</th>
+            <th colspan="2">Total</th>
+			<th rowspan="2">Grade</th>
         </tr>
         <tr>
-        	<td  height="30px" colspan="2" align="right"><strong>MAXIMUM</strong></td>
-            <?php 
+             <?php 
 				$totalMx=0;
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -123,55 +126,20 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						$countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
 						{	
-							while($ft4=mysql_fetch_array($st4))
-							{
-								$max_marks=$ft4['max_marks'];
-								$totalMx+=$max_marks;
-								
-						} 
-					?><td align="center"><strong><?php echo $max_marks; ?></strong></td>
-					<?php						
-					}
-					else
-					{for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
-					}
-                }
-                ?>
-            <td align="center"><strong><?php echo $totalMx;?></strong></td>
-        </tr>
-        <tr>
-        	<td height="30px" colspan="2" align="right"><strong>MINIMUM</strong></td>
-             <?php 
-			 	
-                $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
-                while($ft=mysql_fetch_array($st))
-                {
-                    $heading_term=$ft['term_id'];
-                    $st3=mysql_query("select `name` from `master_term` where `id`='$heading_term'");
-                    $ft3=mysql_fetch_array($st3);
-                    $heading_name=$ft3['name'];
-					$category_wisecolumn=mysql_query("select * from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
-					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
-					{
-						$categoryidd=$ftc_categorywise['category_id'];	
- 						$st4=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
-						$countexam_mapping=mysql_num_rows($st4);
-						if($countexam_mapping>0)
-						{	
-							while($ft4=mysql_fetch_array($st4))
-							{
- 								?>
-								<td></td>
-								<?php
-						    } 	
+							 	 
+						?><td align="center"><strong>MM</strong></td>
+						  <td align="center"><strong>OBT</strong></td>
+						<?php						
 						}
 						else
-						{for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
+						{for($x=0; $x<$countArchitecure; $x++){echo"<td colspan='2'></td>";}}
 						}
-                	}
+					}
                 ?>
-            <td></td>
+				<td align="center"><strong>MM</strong></td>
+				<td align="center"><strong>OBT</strong></td>
         </tr>
+        
         
         
        
@@ -207,20 +175,21 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				{
 					continue;
 				}
+				$col_span_sub=0;
+				$sub_count=0;
 				$slt=mysql_query("select DISTINCT(`sub_subject_id`) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `subject_id`='$subject_id'");
 				$sub_sub_count=mysql_num_rows($slt);
 				if($sub_sub_count>0){
 					$sub_count=$sub_sub_count;
-				}else{
-					$sub_count=0;
+					
 				}
-				
-				
-				
+				if($sub_count==1)
+				{$col_span_sub=2;}
+				 
 				?>
                  <tr>
-                 	<th rowspan="<?php echo $sub_count; ?>" width="15%"><?php echo $SNo; ?></th>
-                    <th height="33" width="15%" style="margin-left:5px" rowspan="<?php echo $sub_count; ?>">
+                 	<th rowspan="<?php echo $sub_count; ?>"  width="15%"><?php echo $SNo; ?></th>
+                    <th height="33" width="15%" colspan="<?php echo $col_span_sub;?>" style="margin-left:5px" rowspan="<?php echo $sub_count; ?>">
 					<?php echo $subject; ?></th> 
 					<?php 
 					if($sub_count>0){
@@ -230,10 +199,11 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						
 						$slt1=mysql_query("select `name` from `master_sub_subject` where `id`='$sub_subject_id'");
 						$flt1=mysql_fetch_array($slt1);
-						$sub_sub_name=$flt1['name']
-						
-						?>
-						<th width="10%"><?php echo $sub_sub_name; ?></th>
+						$sub_sub_name=$flt1['name'];
+						if($sub_subject_id)
+						{?>
+							<th width="10%"><?php echo $sub_sub_name; ?></th>
+					<?php } ?>
 					
 					
                 <?php
@@ -278,7 +248,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$OverAllTotalGetMarks+=$SubjectMarks;
 								}
 								?>
-								<th>MAX-</th>
+								<th><?php echo $MainMaxMarks;?></th>
 								<th><?php echo $TotalOneSubject;//.'( '.$TotalOneSubjectMax.' )'; ?> </th>
 							<?php
 							$forCOl++;
@@ -294,6 +264,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							$FaildInSubject[]=$subject;
 						}
 						?>
+                         	<th><?php echo $TotalMaxMarks; ?></th>
                          	<th><?php echo $TotalGetMarks;//.'( '.$TotalMaxMarks.' )'; ?></th>
                         <?php
 						//** FInd Grade
@@ -320,9 +291,10 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
  			///*- END SUVJECT ALLOCSTYION LOOP
 			?>
              <tr>
-                <th style="height:35px" colspan="<?php echo $forCOl+2;?>">Grand Total</th>
-                <th width="14%" style="color:#F00"><?php echo $OverAllTotalGetMarks; ?>/<?php echo $OverAllTotalMaxMarks; ?></th>
-				<td>-</td>
+                <th style="height:35px" colspan="<?php echo $forCOl+2+$forCOl+1;?>">Grand Total</th>
+                <th style="color:#F00"><?php echo $OverAllTotalMaxMarks; ?></th>
+                <th style="color:#F00"><?php echo $OverAllTotalGetMarks; ?></th>
+				<td></td>
             </tr>
  		<?php 
 			
@@ -358,7 +330,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				?>
                  <tr>
                  	<th><?php echo $SNo; ?></th>
-                    <th height="33" width="8%" style="margin-left:5px"><?php echo $subject; if(!empty($sub_subject_name)){ ?>-<?php echo $sub_subject_name; } ?></th> 
+                    <th height="33" colspan="2" width="8%" style="margin-left:5px"><?php echo $subject; if(!empty($sub_subject_name)){ ?>-<?php echo $sub_subject_name; } ?></th> 
                 <?php
 					 $TotalMaxMarks=0;
 						$TotalGetMarks=0;
@@ -400,6 +372,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$OverAllTotalGetMarks+=$SubjectMarks;
 								}
 								?>
+								<th><?php echo $MainMaxMarks;//.'( '.$TotalOneSubjectMax.' )'; ?> </th>
 								<th><?php echo $TotalOneSubject;//.'( '.$TotalOneSubjectMax.' )'; ?> </th>
 							<?php
 							}
@@ -407,6 +380,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					}
 					//** END Exam Mapping Table ------- FInd Exam Category 
  					?>
+                         	<th><?php echo $TotalMaxMarks; ?></th>
                          	<th><?php echo $TotalGetMarks;//.'( '.$TotalMaxMarks.' )'; ?></th>
                     <?php
 						//** FInd Grade
@@ -621,11 +595,11 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 		</table>
 		<table width="100%" height="240" border="1"  cellspacing="0" cellpadding="0"  >
             <tr>
-                <th width="50%" colspan="2">Final Report</th>
+                <th width="50%" height="30px" colspan="2">Final Report</th>
 				<th width="50%"><?php echo $status; ?></th>
 			</tr>
             <tr>
-                <th width="50%" colspan="2">DISTINCTION</th>
+                <th width="50%" height="30px" colspan="2">DISTINCTION</th>
 				<th width="50%"><?php if(!empty($DistInSubject)){ echo implode(' , ',$DistInSubject);}?></th>
 			</tr>
 			<tr>
@@ -643,33 +617,35 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					$Division='I';
 				}
 				?>
-				<td style="text-align:left; padding-left:15px;" >Division</td>
+				<td style="text-align:left; padding-left:15px;" height="30px" >Division</td>
 				<td style="text-align:left; padding-left:10px;"><span style="color:#F00;"><b><?php echo $Division; ?> </b></span></td>
 				<td></td>
 			</tr>
 			<tr>
-				<td style="text-align:left; padding-left:15px;">Percentage </td>
+				<td height="30px" style="text-align:left; padding-left:15px;">Percentage </td>
 				<td style="text-align:left; padding-left:10px;"><span style="color:#F00"><b><?php echo $OverAllPersentage; ?> %</b></span></td>
 				<td></td>
 			</tr>
 			<tr>
-                <td style="text-align:left; padding-left:15px;">Rank</th>
+                <td height="30px" style="text-align:left; padding-left:15px;">Rank</th>
 				<td></th>
 				<td></td>
 			</tr>
 		</table>
 		<table width="100%"   border="0"  cellspacing="0" cellpadding="0"  >
             <tr>
-                <th height="100px" width="25%">image  </th>
-                <th width="25%">image </th>
-                <th width="25%">image </th>
-                <th width="25%">image </th>
+                <th height="100px" width="20%">   </th>
+                <th height="100px" width="20%">   </th>
+                <th width="20%">  </th>
+                <th width="20%">  </th>
+                <th width="20%">  </th>
 			</tr>
 			 <tr>
-                <th height="10px" width="25%">Class Teacher</th>
-                <th width="25%">Examination incharge</th>
-                <th width="25%">School Seal</th>
-                <th width="25%">Sign of Principal</th>
+                <th height="10px" width="20%">Result Date</th>
+                <th height="10px" width="20%">Class Teacher</th>
+                <th width="20%">Examination incharge</th>
+                <th width="20%">Head Mistress</th>
+                <th width="20%">Parents</th>
 			</tr>
 			 
 		</table>

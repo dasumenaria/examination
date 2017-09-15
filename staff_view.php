@@ -6,25 +6,10 @@ include("database.php");
 $school_id=$_SESSION['school_id'];
 
 if(isset($_POST['sub'])){
-	
- $del=$_POST['del_id'];
- 
- mysql_query("delete from `login` where `id`='$del'");
- 
-  $st=mysql_query("select * from `wwwsmtma_exam_session`.`school` where `id`!='$school_id'");
-  $ft=mysql_fetch_array($st);
-  $dbs=$ft['db_code'];
-   
-  $st=mysql_query("select * from `wwwsmtma_exam_session`.`login_session` where `school_id`!='$school_id'");
-  $ft=mysql_fetch_array($st);
-  $sess=$ft['session'];
-  
-  $sesssion_final='wwwsmtma_'.$dbs.'_'.$sess;
-  
- mysql_query("delete from `".$sesssion_final."`.`login` where `id`='$del'");
-
- mysql_query("delete from `wwwsmtma_exam_session`.`login` where `id`='$del'");
-	
+	$del=$_POST['del_id'];
+	mysql_query("delete from `login` where `id`='$del'");
+	mysql_query("Delete from `staff_class` where `staff_id`='$del'");
+	header("location:staff_view.php"); 
 }
 
  ?>

@@ -191,10 +191,103 @@ function header_info_CBSC($id,$exam_name)
 	</div>
 	<?php
 }
-
+function header_info_XAVIER($id,$exam_name)
+{
+	$result=mysql_query("select * from `student` where `id`='$id'");
+	$row=mysql_fetch_array($result);
+		$sch=$row['scholar_no'];
+		$nm=$row['name'];
+		$faculty=$row['faculty'];
+		$f_nm=$row['father_name'];
+		$m_nm=$row['mother_name'];
+		$class_id=$row['class_id'];
+		$section=$row['section_id'];
+		$photo_path=$row['photo_path'];
+		$dob1=$row['dob'];
+		$padd=$row['address'];
+		$rn=$row['roll_no'];
+			$sle_section=mysql_query("select * from `master_section` where `id`='$section'");
+			$ftc_section=mysql_fetch_array($sle_section);
+			$sec=$ftc_section['section'];
+			$sel_cls=mysql_query("select * from `master_class` where `id`='$class_id'  ");
+			$ftc_class_id=mysql_fetch_array($sel_cls);
+			$cls=$ftc_class_id['roman'];
+		$dob=date("d-M-Y",strtotime($dob1));
+			$set=mysql_query("select `name` from `master_term` where `id`='$exam_name'");
+			$fet=mysql_fetch_array($set);
+			$term=$fet['name'];
+		$session_fetch=@$_SESSION['session'];
+		$ses_name=explode("_" , $session_fetch);
+		foreach($ses_name as $ses){
+			$ses;
+		}
+		$schl=mysql_query("select * from `school`");
+		$ftc_schl=mysql_fetch_array($schl);
+                
+	?>
+    <table width="70%" border="0" style="margin-left:15%;">
+        <tr>
+        	<td width="25%" rowspan="2">
+            	<div align="right"> 
+                    <img width="120"  height="120" style="margin-top:10px" src="img/<?php echo $ftc_schl['logo'];?>"/>
+                </div>
+            </td>
+            <td>
+            	<div  style="font-size:35px; text-align:center;">
+                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?></strong>
+                 </div>
+				 <div  style="font-size:15px; text-align:center;"> Co-educational, English Medium School</br>
+				 A Unit of St. Xavier Educational Society</br>
+				 <strong> <em>"Our success lies in your child's progress"</em></strong> 
+				 </div>
+            </td>
+             
+        </tr>
+        <tr> 
+        	<td colspan="3" align="center">
+            	<div  style="font-size:25px; text-align:center;">
+                	<strong>PROGRESS REPORT : ( <?php echo $ses; ?> )</strong>
+                </div>
+            </td>
+        </tr>
+	</table>
+	<div style="width:100%">
+	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
+         
+      <tr align="left">
+      	<th style="width:15%">Scholar No.</th>
+		<td style="width:55%">: &nbsp;<?php  echo $sch;?></td>
+        <td style="width:15%"></td><td></td>
+      </tr>
+	  <tr align="left">
+		<th>Name of Student</th>
+		<th> : &nbsp; <strong ><?php $nm=strtolower($nm); echo ucwords($nm);?></strong> </th>
+        <th>Roll No.</th>
+	    <th> : &nbsp; <?php echo  $rn;?></th>
+	  </tr>
+	  <tr align="left">
+		<th>Father's Name</th>
+		<th>: &nbsp; <strong ><?php $f_nm=strtolower($f_nm); echo ucwords($f_nm);?></strong></th>
+        <th>Class & Section</th>
+		<th> : &nbsp; <?php echo ucwords($cls).'-'.ucwords($sec);?></th>
+	  </tr>
+	  <tr align="left">
+		<th>Mother's Name</th>
+		<th> : &nbsp; <strong ><?php $m_nm=strtolower($m_nm); echo ucwords($m_nm);?></strong></th>
+        <th>Date of Birth</th>
+		<th> : &nbsp; <?php if($dob1!='0000-00-00') { echo $dob; }?></th>
+	  </tr>
+	  <tr align="center">
+ 		<th align="center" colspan="10" style="font-size:18px"><strong>Report A - Scholastic Achievement</strong></th>
+	  </tr>
+	</table>
+	</div>
+	<div style="float:right; margin-right:5px">
+ 	</div>
+	<?php
+}
 function header_info_CBA($id,$exam_name)
 {
-		
 	$result=mysql_query("select * from `student` where `id`='$id'");
 	$row=mysql_fetch_array($result);
 		$sch=$row['scholar_no'];
