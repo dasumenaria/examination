@@ -97,7 +97,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						{ for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
 					}
 					?>
-					<th colspan="<?php echo $colspan; ?>"><b><?php echo $heading_name; ?></b></th>
+					<th colspan="2<?php //echo $colspan; ?>"><b><?php echo $heading_name; ?></b></th>
 					<?php
                 }
                 ?>	
@@ -183,7 +183,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			$FaildInSubject=array();
 			///*- SUVJECT ALLOCSTYION LOOP
 			$SNo=0;
- 			$FindSubject=mysql_query("select * from `subject_allocation` where `class_id`='$class_id'  && `section_id`='$section_id'");
+ 			$FindSubject=mysql_query("select distinct `subject_id`,`elective` from `subject_allocation` where `class_id`='$class_id'  && `section_id`='$section_id'");
 			while($ftc_subject=mysql_fetch_array($FindSubject))
 			{
 				$SNo++;
@@ -278,6 +278,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$OverAllTotalGetMarks+=$SubjectMarks;
 								}
 								?>
+								<th>MAX-</th>
 								<th><?php echo $TotalOneSubject;//.'( '.$TotalOneSubjectMax.' )'; ?> </th>
 							<?php
 							$forCOl++;
