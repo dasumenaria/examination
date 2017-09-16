@@ -32,11 +32,15 @@ $fter2=mysql_fetch_array($ster2);
 
 $su_name=$fter2['subject']; 
 
-$ster3=mysql_query("select `name` from `master_term` where `id`='$subject'");
+$ster3=mysql_query("select `name` from `master_term` where `id`='$exam_name'");
 $fter3=mysql_fetch_array($ster3); 
 
 $trm_name=$fter3['name'];
 
+$ster4=mysql_query("select `name` from `exam_category` where `id`='$cat'");
+$fter4=mysql_fetch_array($ster4); 
+
+$cat_name=$fter4['name'];
 
 if(isset($_POST['sub'])){
 
@@ -94,7 +98,8 @@ $query=mysql_query("select * from `student` where `class_id`='$class_id' && `sec
 			<div class="portlet box blue">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-gift"></i>Fill Marks
+						<i class="fa fa-gift"></i>Fill Marks for Category - 
+						<b><?php echo $cat_name; ?></b>
 					</div>
 				</div>
 				<div class="col-md-offset-1 col-md-9" style="padding-top:10px;font-size:15px;">
@@ -182,7 +187,7 @@ $query=mysql_query("select * from `student` where `class_id`='$class_id' && `sec
 					$fet1=mysql_fetch_array($set1);
 					$exam=$fet1['Exam'];
 				?>
-                <td><input class="number number_only check_max" maxmarks="<?php echo $max_marks;?>" required name="marks[<?php echo $scholar_no; ?>][<?php echo $exam_category_type; ?>]" examcategorytype="<?php echo $exam_category_type; ?>" scholarno="<?php echo $scholar_no; ?>" value="<?php echo $student_marks_data_single_marks; ?>">
+                <td><input class="number number_only check_max" maxmarks="<?php echo $max_marks;?>" name="marks[<?php echo $scholar_no; ?>][<?php echo $exam_category_type; ?>]" examcategorytype="<?php echo $exam_category_type; ?>" scholarno="<?php echo $scholar_no; ?>" value="<?php echo $student_marks_data_single_marks; ?>">
 				<input class="form-control" type="hidden" name="class_id" value="<?php echo $class; ?>">
                 <input class="form-control" type="hidden" name="section_id" value="<?php echo $section; ?>">
                 <input class="form-control" type="hidden" name="subject_id" value="<?php echo $subject; ?>">
