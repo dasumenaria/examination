@@ -213,13 +213,15 @@ if((!empty($class_id)) && (empty($sect))){ ?>
 							{$c++;
 								$sub_id=$fr['elective'];
 								$sub_subject_id=$fr['sub_subject_id'];
-								
-								
+								 
 								  $s1=mysql_query("select `subject` from `subject` where `id`='$sub_id'");
 								  $f1=mysql_fetch_array($s1);
 								  
 								  $sub_name=$f1['subject'];
 								
+								$stt=mysql_query("select `name` from `master_sub_subject` where `id`='$sub_subject_id'");
+								$ftt=mysql_fetch_array($stt);
+								$sub_sub_name=$ftt['name'];
 							
 							?>
 						
@@ -231,7 +233,7 @@ if((!empty($class_id)) && (empty($sect))){ ?>
 							
 							<td style="text-align:center">
 							
-								<?php echo $sub_name; ?>-<?php echo $sub_subject_id; ?>
+								<?php echo $sub_name; ?>-<?php echo $sub_sub_name; ?>
 							</td>
 							
 							

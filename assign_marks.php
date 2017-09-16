@@ -136,7 +136,7 @@ $query=mysql_query("select * from `student` where `class_id`='$class_id' && `sec
 		<tbody>
 <?php $query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `name`"); $i=0;
 	 while($fets=mysql_fetch_array($query))
-		{ $f++; $i++;
+		{ 
 			$roll_no=$fets['roll_no'];
 			$scholar_no=$fets['scholar_no'];
 			$student_name=$fets['name'];
@@ -144,7 +144,22 @@ $query=mysql_query("select * from `student` where `class_id`='$class_id' && `sec
 			$fet7=mysql_fetch_array($query7);
 			$subject_name=$fet7['subject'];
 			$qwq.="$f,$roll_no,$student_name,$scholar_no,$subject_name";
-				 			
+			
+			$slt=mysql_query("select * from `subject_allocation` where `class_id`='$class' && `section_id`='$section' && `elective`='$subject'");
+			$elective_count=mysql_num_rows($slt);
+			if($elective_count>0){
+				
+				$sts=mysql_query("select * from `elective` where `scholar_id`='$scholar_no' && `subject_id`='$subject'");
+				$elec_count=mysql_num_rows($sts);
+				if($elec_count>0){
+					
+				}
+				else{
+					continue;
+				}
+				
+			}
+			$f++; $i++;	 			
 			?>		
 			<tr>
 				<td><?php echo $i ;?></td>				
@@ -238,12 +253,12 @@ jQuery(document).ready(function() {
 		var scholarno=$(this).closest('td').find('input').attr('scholarno');
 		var marks=$(this).val();
 		
-		/* $.ajax({
+		 $.ajax({
 				url: "update_assign_marks.php?class_id="+class_id+"&section_id="+section_id+"&subject_id="+subject_id+"&sub_subject_id="+sub_subject_id+"&term="+term+"&category="+category+"&examcategorytype="+examcategorytype+"&scholarno="+scholarno+"&marks="+marks,
 					 
 				}).done(function(response) {
 			   $("#data").html(""+response+"");
-			}); */
+			}); 
 		}
 	});
 	

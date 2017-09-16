@@ -69,7 +69,7 @@ header ("Content-Description: Generated Report" );
 	
 	$query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `name` ASC");
 	while($fets=mysql_fetch_array($query))
-	{$f++;
+	{
 	$roll_no=$fets['roll_no'];
 	$scholar_no=$fets['scholar_no'];
 	$student_name=$fets['name'];
@@ -78,7 +78,22 @@ header ("Content-Description: Generated Report" );
 	
 	$subject_name=$fet7['subject'];
 	
-	
+	$slt=mysql_query("select * from `subject_allocation` where `class_id`='$class' && `section_id`='$section' && `elective`='$subject'");
+			$elective_count=mysql_num_rows($slt);
+			if($elective_count>0){
+				
+				$sts=mysql_query("select * from `elective` where `scholar_id`='$scholar_no' && `subject_id`='$subject'");
+				$elec_count=mysql_num_rows($sts);
+				if($elec_count>0){
+					
+				}
+				else{
+					continue;
+				}
+				
+			}
+			
+		$f++;	
 	$qwq.="$f,$roll_no,$student_name,$scholar_no,$subject_name";
 	
 	
