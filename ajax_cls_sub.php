@@ -301,7 +301,7 @@ if($optional_id=='1'){
 							$sub_subject_id=$ft['id'];
 							$sub_subject_name=$ft['name'];
 							
-							$flt1=mysql_query("select * from `subject_allocation` where `class_id`='$class_id' && `section_id`='$section_id' && `subject_id`='$id' && `sub_subject_id`='$sub_subject_id'");
+							$flt1=mysql_query("select * from `subject_allocation` where `class_id`='$class_id' && `section_id`='$section_id' && `elective`='$id' && `sub_subject_id`='$sub_subject_id'");
 							$sub_sub_count1=mysql_num_rows($flt1);
 						?>
 						
@@ -309,7 +309,7 @@ if($optional_id=='1'){
 						  <?php echo $sub_subject_name; ?> 
 								 <div class="checkbox-list">
                                     <span>
-									<input type="checkbox" class="all_chk" <?php if($count>0){ ?> checked="checked" <?php } ?> name="sub_subject_<?php echo $id; ?>[]" value="<?php echo $sub_subject_id; ?>">
+									<input type="checkbox" class="all_chk" <?php if($sub_sub_count1>0){ ?> checked="checked" <?php } ?> name="sub_subject_<?php echo $id; ?>[]" value="<?php echo $sub_subject_id; ?>">
 									</span>
 								 </div>
 							 
