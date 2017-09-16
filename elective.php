@@ -10,7 +10,7 @@ if(isset($_POST['sub']))
 	
 						
 							$f1=0;
-							$que=mysql_query("select `scholar_no`,`name` from `student` where `class_id`='$class_id' && `section_id`='$section_id'");
+							$que=mysql_query("select `scholar_no`,`name` from `student` where `class_id`='$class_id' && `section_id`='$section_id' ORDER BY `name`");
 							while($fet=mysql_fetch_array($que))
 							{$f1++;
 						
@@ -20,7 +20,7 @@ if(isset($_POST['sub']))
  									   mysql_query("delete from `elective` where `scholar_id`='$scholar_no'");
 							
 							$i=0;
-									  $qur1=mysql_query("select `elective` from `subject_allocation` where `class_id`='$class_id' && `elective`!='0'");
+									  $qur1=mysql_query("select DISTINCT(`elective`) from `subject_allocation` where `class_id`='$class_id' && `subject_id`='0'");
 									  while($fet1=mysql_fetch_array($qur1))
 									  {
 										  $elec_id=$fet1['elective'];

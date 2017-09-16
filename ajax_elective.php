@@ -45,7 +45,7 @@ if(empty($section_id)){ ?>
 										 Student Name
 									</th>
 									  <?php 
- 									  $qur=mysql_query("select `elective` from `subject_allocation` where `class_id`='$class_id' && `elective`!='0' && `section_id`='$section_id'");
+ 									  $qur=mysql_query("select DISTINCT(`elective`) from `subject_allocation` where `class_id`='$class_id' && `subject_id`='0' && `section_id`='$section_id'");
 									  $count=mysql_num_rows($qur);
 									  while($fet=mysql_fetch_array($qur))
 									  {$f++;
@@ -88,7 +88,7 @@ if(empty($section_id)){ ?>
                                     </td>
                                     <?php  
                                       $i=0;
-                                      $qur1=mysql_query("select `elective` from `subject_allocation` where `class_id`='$class_id' && `elective`!='0' && `section_id`='$section_id'");
+                                      $qur1=mysql_query("select DISTINCT(`elective`) from `subject_allocation` where `class_id`='$class_id' && `subject_id`='0' && `section_id`='$section_id'");
                                       while($fet1=mysql_fetch_array($qur1))
                                       {
                                         $elec_id=$fet1['elective'];
