@@ -438,7 +438,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				<td width="63%">
 					<table width="100%"  cellspacing="0px" cellpadding="0px" border="1">
 						<tr class="header_font">
-							 <th style="height:55px" >Report B - Attendance</th>
+							 <th style="height:45px" >Report B - Attendance</th>
 							 <?php 
 							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
 							while($ft=mysql_fetch_array($st))
@@ -455,7 +455,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th>Over All</th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" class="header_sub">Number of Meetings</th>
+							<th style="height:45px" class="header_sub">Number of Meetings</th>
 							<?php 
 							$totalAttend=0;
 							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
@@ -474,7 +474,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th><?php echo $totalAttend;?></th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" class="header_sub" >No. of Meetings <br> on work present</th>
+							<th style="height:45px" class="header_sub" >No. of Meetings <br> on work present</th>
 							<?php 
 							$totalAttendP=0;
 							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
@@ -493,7 +493,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							<th><?php echo $totalAttendP;?></th>
 						 </tr>
 						 <tr>
-							<th style="height:55px" class="header_sub" >Percentage</th>
+							<th style="height:40px" class="header_sub" >Percentage</th>
 							<?php 
 							$totalAttendP=0;
 							$totalAttendPGET=0;
@@ -594,23 +594,23 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						
 						?>
 						<tr class="header_sub">
-                            <td style="text-align:left;height:43px; width:50%; padding-left:15px;">Result</td>	
+                            <td style="text-align:left;height:35px; width:50%; padding-left:15px;">Result</td>	
                             <td><b><?php echo $FinalStatusOfResult; ?></b></td>	
                         </tr>
 						<tr class="header_sub">
-                            <td style="text-align:left; height:44px; padding-left:15px;">Compartment</td>
+                            <td style="text-align:left; height:35px; padding-left:15px;">Compartment</td>
                             <td><?php $Compartment;?></td>
                         </tr>
 						<tr class="header_sub">
-                            <td style="text-align:left; height:44px; padding-left:15px;">Detained in</td>
+                            <td style="text-align:left; height:35px; padding-left:15px;">Detained in</td>
                             <td><?php echo $Detained;?></td>
                         </tr>
 						<tr class="header_sub">
-                            <td style="text-align:left; height:44px; padding-left:15px;">Compartment Result</td>
+                            <td style="text-align:left; height:35px; padding-left:15px;">Compartment Result</td>
                             <td>-</td>
                         </tr>
 						<tr class="header_sub">
-                            <td style="text-align:left; height:43px; padding-left:15px;">Promotion Granted to</td>
+                            <td style="text-align:left; height:35px; padding-left:15px;">Promotion Granted to</td>
                             <td><?php echo $Promotion;?></td>
                         </tr>
                      </table>
@@ -687,10 +687,10 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
                 </td>
             </tr>
             <tr>
-                <th height="100px" width="25%">image  </th>
-                <th width="25%">image </th>
-                <th width="25%">image </th>
-                <th width="25%">image </th>
+                <th height="100px" width="25%">   </th> 
+                <th width="25%"><img height="60" style="margin-top:10px" width="100px" src="img/Incharge.png" /> </th>
+                <th width="25%"><img height="80" style="margin-top:10px" width="80px" src="img/seal.jpg" /> </th>
+                <th width="25%"><img height="60" style="margin-top:10px" width="100px" src="img/PrincipalSign.png" />	 </th>
 			</tr>
 			 <tr>
                 <th height="10px" width="25%">Class Teacher</th>

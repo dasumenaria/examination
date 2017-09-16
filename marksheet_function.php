@@ -320,29 +320,12 @@ function header_info_CBA($id,$exam_name)
 		$ftc_schl=mysql_fetch_array($schl);
                 
 	?>
-    <table width="70%" border="0" style="margin-left:15%;">
+    <table width="100%" border="0">
         <tr>
-        	<td width="25%" rowspan="2">
-            	<div align="right"> 
-                    <img width="120"  height="120" style="margin-top:10px" src="img/<?php echo $ftc_schl['logo'];?>"/>
-                </div>
+        	<td>
+				<img style="margin-top:10px" height="230px" width="1000px" src="img/<?php echo $ftc_schl['logo'];?>"/>
             </td>
-            <td>
-            	<div  style="font-size:35px; text-align:center;">
-                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?></strong>
-                 </div>
-				 <div  style="font-size:21px; text-align:center;"><strong style="font-family:revue-bt"><?php echo $ftc_schl['address'];?></strong> 
-				 </div>
-            </td>
-             
-        </tr>
-        <tr> 
-        	<td colspan="3" align="center">
-            	<div  style="font-size:25px; text-align:center;">
-                	<strong>Academic Session: ( <?php echo $ses; ?> )</strong>
-                </div>
-            </td>
-        </tr>
+		</tr>
 	</table>
 	<div style="width:100%">
 	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">

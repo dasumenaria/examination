@@ -19,20 +19,18 @@ if(!empty($class_id) && !empty($sec) )
 ?>
  
 <table width="90%" align="center" style="text-align:center;font-size:15px; margin-top:5px; border-collapse:collapse">
-		<tr style="font-size:20px">
-			<td style="padding:5px" >
-				<h3><strong><?php echo $school; ?>  (SECTION LIST)</strong></h3>
-			</td>
-		</tr >
-		<tr >
-			<td style="padding-left:10px">
-				<strong>Class</strong> - <?php echo $cls ; ?> <strong>Section - </strong> <?php echo $sec_nm; ?>
-			</td>
-		</tr>
-
+	<tr style="font-size:20px">
+		<td style="padding:5px" >
+			<h3><strong><?php echo $school; ?>  (SECTION LIST)</strong></h3>
+		</td>
+	</tr >
+	<tr >
+		<td style="padding-left:10px">
+			<strong>Class</strong> - <?php echo $cls ; ?> <strong>Section - </strong> <?php echo $sec_nm; ?>
+		</td>
+	</tr>
 </table>
 <br />
-
 <table class="table table-bordered table-hover">	
 <tr>
 	<th width="5%">S.No.</th>
