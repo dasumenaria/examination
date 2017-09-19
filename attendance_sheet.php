@@ -33,7 +33,7 @@ $fct="S.No.,Roll No,Student Name,Scholar no,Total Meeting,Meeting Attend";
 $last;
 $qwq=$fct;
 $qwq.="\n";
-$query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `name`");
+$query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `roll_no` ASC");
 while($fets=mysql_fetch_array($query))
 {
 	$f++;

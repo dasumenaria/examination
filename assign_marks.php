@@ -53,7 +53,7 @@ $term_id=$_POST['term'];
 $category=$_POST['category'];
 $marks=$_POST['marks'];
 
-$query=mysql_query("select * from `student` where `class_id`='$class_id' && `section_id`='$section_id' order By `name`"); $i=0;
+$query=mysql_query("select * from `student` where `class_id`='$class_id' && `section_id`='$section_id' order By `roll_no` ASC"); $i=0;
 	 while($fets=mysql_fetch_array($query))
 		{ $f++; $i++;
 			$roll_no=$fets['roll_no'];
@@ -139,7 +139,7 @@ $query=mysql_query("select * from `student` where `class_id`='$class_id' && `sec
 								</tr>
 							</thead>
 		<tbody>
-<?php $query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `name`"); $i=0;
+<?php $query=mysql_query("select * from `student` where `class_id`='$class' && `section_id`='$section' order By `roll_no` ASC"); $i=0;
 	 while($fets=mysql_fetch_array($query))
 		{ 
 			$roll_no=$fets['roll_no'];
