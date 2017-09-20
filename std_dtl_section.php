@@ -40,8 +40,8 @@ if(!empty($class_id) && !empty($sec) )
     <th width="10%">DOB (DD-MM-YYYY)</th> 
     <!--<th width="7%">Class</th>--->
     <th width="10%">Section</th>
-    <th width="10%">Photo</th>
-    <th width="10%">Change Image</th>
+    <!--th width="10%">Photo</th>
+    <th width="10%">Change Image</th-->
    </tr>
 <?php
 $x=0;
@@ -92,8 +92,8 @@ $sle_stdnt_reg=mysql_query(" select * from `student` where `class_id`='$class_id
          ?>
     </select>
     </td>
-	<td><img src="user/<?php echo $photo_path; ?>" height="30px" width ="30px"/></td>
-	<td><input type="file" name="upload_image[]" /></td>
+	<!--td><img src="user/<?php //echo $photo_path; ?>" height="30px" width ="30px"/></td>
+	<td><input type="file" name="upload_image[]" /></td-->
 </tr>
  	 <?php
 	 }
@@ -135,8 +135,8 @@ $cls=$ftc_class['class'];
     <th width="10%">DOB (DD-MM-YYYY)</th> 
     <!--<th width="7%">Class</th>-->
     <th width="10%">Section</th>
-	<th>Photo</th>
-	<th>Change Image</th>
+	<!--th>Photo</th>
+	<th>Change Image</th-->
    </tr>
 <?php
 $x=0;
@@ -188,8 +188,8 @@ $sle_stdnt_reg=mysql_query(" select * from `student` where `class_id`='$class_id
          ?>
      </select>
     </td>
-	<td><img src="user/<?php echo $photo_path; ?>" height="30px" width ="30px"/></td>
-	<td><input type="file" name="upload_image[]" /></td>
+	<!--td><img src="user/<?php //echo $photo_path; ?>" height="30px" width ="30px"/></td>
+	<td><input type="file" name="upload_image[]" /></td-->
 </tr>
  	 <?php
 	 }

@@ -92,6 +92,9 @@ if((!empty($class)) && (empty($section)) ){
 <div id="sht"> </div>
 
 <?php } if((!empty($class)) && (!empty($section)) && (!empty($term))){ ?>
-<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="attendance_sheet.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" target="_blank"><strong>ATTENDANCE</strong></a>
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:30%" href="attendance_sheet.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&exm=<?php echo $term; ?>" target="_blank"><strong>ATTENDANCE EXCEL</strong></a>
+
+
+<a style="padding: 12px 17px; text-decoration: none; background-color:rgba(218, 73, 73, 0.74); color:#FFF;margin-left:2" href="attendance_filling.php?cls=<?php echo $class; ?>&sec=<?php echo $section; ?>&trm=<?php echo $term; ?>" > <i class="fa fa-edit"></i> ATTENDANCE FILLING </a>
 
 <?php } ?>
