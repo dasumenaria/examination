@@ -256,7 +256,7 @@ function header_info_XAVIER($id,$exam_name)
          
       <tr align="left">
       	<th style="width:15%">Scholar No.</th>
-		<td style="width:55%">: &nbsp;<?php  echo $sch;?></td>
+		<th style="width:55%" align="left">: &nbsp;<?php  echo $sch;?></th>
         <td style="width:15%"></td><td></td>
       </tr>
 	  <tr align="left">
