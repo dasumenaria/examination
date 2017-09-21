@@ -170,6 +170,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				if(empty($subject_id))
 				{
 					$subject_id=$ftc_subject['elective'];
+ 					
+					$ElectiveQuery=mysql_query("select * from `elective` where `scholar_id`='$scholar_no' && `subject_id`='$subject_id'");
+					$ElectiveQueryCount=mysql_num_rows($ElectiveQuery);
+					if($ElectiveQueryCount==0)
+					{
+						continue;
+					}
 				}
 				$sub_subject_id=$ftc_subject['sub_subject_id'];
 				
