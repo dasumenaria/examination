@@ -119,44 +119,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					}
 					if($colspan==1){$colspan=0;}
 					?>
-					<th height="30px"><b><?php echo $heading_name; ?></b></th>
+					<th height="30px" colspan="<?php echo $colspan;?>"><b><?php echo $heading_name; ?></b></th>
 					<?php
                 }
                 ?>	
             <th>Over All Grade</th>
+			
          </tr>
-		   
-        <tr class="header_font">
-             <?php 
-				$no_of_column=0;
-				$totalMx=0;
-                $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
-                while($ft=mysql_fetch_array($st))
-                {
-                    $heading_term=$ft['term_id'];
-                    $st3=mysql_query("select `name` from `master_term` where `id`='$heading_term'");
-                    $ft3=mysql_fetch_array($st3);
-                    $heading_name=$ft3['name'];
-					$category_wisecolumn=mysql_query("select * from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
-					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
-					{
-						$categoryidd=$ftc_categorywise['category_id'];
- 						$st4=mysql_query("select DISTINCT(exam_category_id),`max_marks` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
-						$countexam_mapping=mysql_num_rows($st4);
-						if($countexam_mapping>0)
-						{	
-							$no_of_column++; 	 
-						?>
-						<?php						
-						}
-						else
-						{for($x=0; $x<$countArchitecure; $x++){echo"<td colspan='2'></td>";}}
-						}
-					}
-                ?>
-				
-        </tr>
-        	<?php 
+         	<?php 
  			$OverAllTotalGetMarks=0;
 			$OverAllTotalMaxMarks=0;
 			$Result=0;
