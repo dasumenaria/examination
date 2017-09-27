@@ -531,6 +531,77 @@ function calculate_grade($mhfa1)
    {echo "A1";} 
 }
 
+
+function calculate_primary_grade($mhfa1)
+{
+	if($mhfa1>=0 && $mhfa1<=20.99)
+    {echo "E2";}
+	else if($mhfa1>=21 && $mhfa1<=39.99)
+	{echo "E1";}
+	else if($mhfa1>=40 && $mhfa1<=44.99)
+	{echo "D";}
+	else if($mhfa1>=45 && $mhfa1<=50.99)
+	{echo "C2";}
+	else if($mhfa1>=51 && $mhfa1<=60.99)
+	{echo "C1";}
+	else if($mhfa1>=61 && $mhfa1<=70.99)
+	{echo "B2";}
+	else if($mhfa1>=71 && $mhfa1<=80.99)
+	{echo "B1";}
+	else if($mhfa1>=81 && $mhfa1<=90.99)
+	{echo "A2";}
+	else if($mhfa1>=91 && $mhfa1<=100)
+	{echo "A1";}
+}
+  
+function calculate_primary_grade_co_scholar($mhfa1)
+{
+	if($mhfa1>=00 && $mhfa1<=60.99)
+	{echo "C";}
+	else if($mhfa1>=61 && $mhfa1<=70.99)
+	{echo "B";}
+	else if($mhfa1>=71 && $mhfa1<=80.99)
+	{echo "B+";}
+	else if($mhfa1>=81 && $mhfa1<=90.99)
+	{echo "A";}
+	else if($mhfa1>=91 && $mhfa1<=100)
+	{echo "A+";}
+}
+
+function calculate_primary_grade_co_scholar_six($mhfa1)
+{
+	if($mhfa1>=00 && $mhfa1<=60.99)
+	{echo "E";}
+	else if($mhfa1>=61 && $mhfa1<=70.99)
+	{echo "D";}
+	else if($mhfa1>=71 && $mhfa1<=80.99)
+	{echo "C";}
+	else if($mhfa1>=81 && $mhfa1<=90.99)
+	{echo "B";}
+	else if($mhfa1>=91 && $mhfa1<=100)
+	{echo "A";}
+}
+
+function calculate_remark($present)
+{
+	 if($present>=90 && $present<=100)
+	{
+		echo "Excellent";
+		}
+    if($present>=80 && $present<=89.99)
+   {
+	   echo "Very Good";
+	   }
+    if($present>=75 && $present<=79.99)
+   {
+	   echo "Good";
+	   }
+   if($present<=74.99)
+   {
+	   echo "Insufficient";
+	 } 
+}
+
 function calculate_status($mhfa1)
 {
 	if($mhfa1>=0 && $mhfa1<=20.99)
