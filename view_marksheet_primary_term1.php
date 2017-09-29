@@ -242,7 +242,9 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								$average_percentage=(($TotalOneSubject/$MainMaxMarks)*100);
 								?>
 								<td>
-									<?php echo $show_grade=calculate_primary_grade($average_percentage); ?>
+									<?php echo $show_grade=calculate_primary_grade($average_percentage); 
+									//echo $TotalOneSubject.'/'.$TotalMaxMarks;
+									?>
 								</td>
 							<?php
 							$forCOl++;
@@ -260,7 +262,9 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						$tot_avg=(($TotalGetMarks/$TotalMaxMarks)*100)
 						?>
                          	<th>
-								<?php echo $tot_show_grade=calculate_primary_grade($tot_avg); ?>
+								<?php echo $tot_show_grade=calculate_primary_grade($tot_avg); 
+								//echo $TotalGetMarks.'/'.$TotalMaxMarks;
+								?>
 							 </th>
 							   
                         <?php
