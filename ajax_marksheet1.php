@@ -95,8 +95,8 @@ if($flag=='HELLO'){
  			<a target="_blank" href="others6.php?sch=<?php echo $scholar_no; ?>&cls=<?php echo $class_id; ?>&sec=<?php echo $section_id; ?>
 			&exm=<?php echo $exam_name; ?>" <button type="button" class="btn yellow">All</button></a>
 			<?php } ?>
- 		</div>	
-		 
+ 		</div>
+
  <?php } if((!empty($class_id)) && (!empty($section_id)) && (!empty($exam_name)) && $flag!='HELLO'){?>
 
 
