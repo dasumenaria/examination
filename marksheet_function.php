@@ -428,34 +428,39 @@ function header_info_Primary($id,$exam_name)
         </tr>
 	</table>
 	<div style="width:100%">
-	<table height="180" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
+	<table height="120" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
          
-      <tr align="left">
-      	<th style="width:15%">Scholar No.</th>
-		<th style="width:55%" align="left">: &nbsp;<?php  echo $sch;?></th>
-        <td style="width:15%"></td><td></td>
-      </tr>
+      
 	  <tr align="left">
 		<th>Name of Student</th>
 		<th> : &nbsp; <strong ><?php $nm=strtolower($nm); echo ucwords($nm);?></strong> </th>
-        <th>Roll No.</th>
-	    <th> : &nbsp; <?php echo  $rn;?></th>
-	  </tr>
+		<th style="width:15%">Scholar No.</th>
+		<th style="width:55%" align="left">: &nbsp;<?php  echo $sch;?></th>
+ 	  </tr>
 	  <tr align="left">
 		<th>Father's Name</th>
 		<th>: &nbsp; <strong ><?php $f_nm=strtolower($f_nm); echo ucwords($f_nm);?></strong></th>
-        <th>Class & Section</th>
-		<th> : &nbsp; <?php echo ucwords($cls).'-'.ucwords($sec);?></th>
+		<th>Roll No.</th>
+	    <th> : &nbsp; <?php echo  $rn;?></th>
+        
 	  </tr>
 	  <tr align="left">
 		<th>Mother's Name</th>
 		<th> : &nbsp; <strong ><?php $m_nm=strtolower($m_nm); echo ucwords($m_nm);?></strong></th>
-        <th>Date of Birth</th>
-		<th> : &nbsp; <?php if($dob1!='0000-00-00') { echo $dob; }?></th>
-	  </tr>
-	  <tr align="center">
- 		<th align="center" colspan="10" style="font-size:18px"><strong>Report A - Scholastic Achievement</strong></th>
-	  </tr>
+		<th>Class </th>
+		<th> : &nbsp; <?php echo ucwords($cls);?></th>
+ 	  </tr>
+	  <tr align="left">
+      	<th style="width:15%">Medium</th>
+		<th style="width:55%" align="left">: &nbsp; English</th>
+        <th style="width:15%">Section</th>
+		<th align="left"> : &nbsp; <?php echo ucwords($sec)?></th>
+      </tr>
+	  <tr align="left">
+      	<th>Address</th>
+		<th> : &nbsp; <?php  echo $padd; ?></th>
+      </tr>
+	   
 	</table>
 	</div>
 	<div style="float:right; margin-right:5px">
