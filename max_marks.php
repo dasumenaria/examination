@@ -6,18 +6,29 @@ include("authentication.php");
 if(isset($_POST['sub']))
 {
 	$class_id=$_POST['class_id'];
+	$reduse_to=$_POST['reduse_to'];
 	$subject_id=$_POST['subjc'];
 	$section_id=$_POST['section_id'];
 	$term_id=$_POST['term_id'];
  	$category_id=$_POST['category_id'];
 	$mark_value=$_POST['mark_value'];
-	 print_r($mark_value);
-
+	echo "<pre>";
+	print_r($term_id);
+	echo "</pre>";
+ 
 	 foreach($mark_value as $key => $value){
  
 		 $update_id=$key;
 		 $marks=$value;
 		 mysql_query("update `exam_mapping` SET `max_marks`='$marks' where `id`='$update_id'");
+	 }
+	 foreach($reduse_to as $keys => $values){
+ 
+		 $subject_id=$keys;
+		  
+		 $redese='no';
+		 if($values>0){$redese='yes';}
+		 mysql_query("update `exam_mapping` SET `reduse_to`='$values',`reduse`='$redese' where `class_id`='$class_id' && `section_id`='$section_id' && `subject_id`='$subject_id' && `term_id`='$term_id' && `exam_category_id` ='$category_id'");
 	 }
 	 echo "<meta http-equiv='refresh' content='0;url=max_marks.php'>";
  }
