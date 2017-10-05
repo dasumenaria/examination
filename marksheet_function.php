@@ -399,33 +399,33 @@ function header_info_Primary($id,$exam_name)
 		$ftc_schl=mysql_fetch_array($schl);
                 
 	?>
-    <table width="70%" border="0" style="margin-left:15%;">
-		<caption>
-			<img width="90"  height="90" style="margin-top:10px" src="img/<?php echo $ftc_schl['logo'];?>"/>
-		<caption>
-        <tr>
-            <td>
-            	<div  style="font-size:35px; text-align:center;">
-                	<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?></strong>
-                 </div>
-				 <div  style="font-size:20px; text-align:center;"> 
-				 <strong><?php echo $ftc_schl['address'];?></br>
-				 <?php echo $ftc_schl['affiliation_no'];?></br>
-				 </strong> 
-				 
-				  
-				 </div>
-            </td>
-             
-        </tr>
-        <tr> 
-        	<td colspan="3" align="center">
-            	<div  style="font-size:25px; text-align:center;">
-                	<strong>Record of Academic PerformanceFinal<br>
+    <table width="100%" border="0"><br>
+		<tr>
+			<td width="15%">
+				<img width="100" height="100" src="img/cbselogo.png"/>
+			</td>
+				<td width="70%">
+					<div  style="font-size:35px; text-align:center;">
+						<strong style="font-family:revue-bt"><?php echo $ftc_schl['school'];?></strong>
+					 </div>
+					 <div  style="font-size:20px; text-align:center;"> 
+					 <strong><?php echo $ftc_schl['address'];?></br>
+					 <?php echo $ftc_schl['affiliation_no'];?></br>
+					 </strong>
+					 </div>
+				</td>
+				<td width="15%">
+				<img width="100" height="100"src="img/<?php echo $ftc_schl['logo'];?>"/>
+			</td>
+		</tr>
+		<tr> 
+			<td colspan="3" align="center">
+				<div  style="font-size:25px; text-align:center;">
+					<strong>Record of Academic PerformanceFinal<br>
 					Session : ( <?php echo $ses; ?> )</strong>
-                </div>
-            </td>
-        </tr>
+				</div>
+			</td>
+		</tr>
 	</table>
 	<div style="width:100%">
 	<table height="120" style="width:100%;margin-top:20px; margin-left:1px; font-size:14px;font weight:bold" cellpadding="1" border="0" cellspacing="10">
