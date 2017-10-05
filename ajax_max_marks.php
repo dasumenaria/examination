@@ -131,7 +131,8 @@ include("database.php");
 									<th style="text-align:center">
 										 Subject Name
 									</th>
-									  <th style="text-align:center" colspan="20">
+									<th>Reduse Marks</th>
+									<th style="text-align:center" colspan="20">
 										 Marks
 									</th>
 								</tr>
@@ -139,11 +140,13 @@ include("database.php");
 								<tbody>
 						
 							<?php 
-							$qr=mysql_query("select DISTINCT `subject_id`,`sub_subject_id` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$sect' && `term_id`='$term_id' && `exam_category_id`='$category_id'");
+							$qr=mysql_query("select DISTINCT `subject_id`,`sub_subject_id`,`reduse_to` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$sect' && `term_id`='$term_id' && `exam_category_id`='$category_id'");
 							while($fr=mysql_fetch_array($qr))
 							{$c++;
 								$sub_id=$fr['subject_id'];
 								$sub_subject_id=$fr['sub_subject_id'];
+								$reduse_to=$fr['reduse_to'];
+								 
 								
 								
 								  $s1=mysql_query("select `subject` from `subject` where `id`='$sub_id'");
@@ -167,7 +170,10 @@ include("database.php");
 							
 								<?php echo $sub_name; ?>-<?php echo $sub_subject_name; ?>
 							</td>
-							
+							<td>
+							 
+							<input class="form-control input-xsmall" id="as1" onkeyup="allLetter(this.value,this.id)" value="<?php echo $reduse_to; ?>" type="text" name="reduse_to[<?php echo $sub_id;?>]" aria-invalid="false">
+							</td>
 							
 							<?php  
 							 $sets=mysql_query("select * from `exam_mapping` where `class_id`='$class_id' && `section_id`='$sect' && `term_id`='$term_id' && `exam_category_id`='$category_id' && `subject_id`='$sub_id' && `sub_subject_id`='$sub_subject_id'");
