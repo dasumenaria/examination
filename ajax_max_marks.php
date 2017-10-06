@@ -129,11 +129,11 @@ include("database.php");
 										 Sr No.
 									</th>
 									<th style="text-align:center">
-										 Subject Name
+										Subject Name
 									</th>
-									<th>Reduse Marks</th>
+									<th>Scaling Marks</th>
 									<th style="text-align:center" colspan="20">
-										 Marks
+										Marks
 									</th>
 								</tr>
 								</thead>
