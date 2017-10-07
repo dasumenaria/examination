@@ -99,7 +99,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 					{
 						
-						$categoryidd=$ftc_categorywise['category_id'];	
+						$categoryidd=$ftc_categorywise['category_id'];
  						$st4=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
 						$countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
@@ -160,9 +160,9 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								if(($reduse=='yes') && ($f==0)){
 									$f=1;
 									$view_max_marks=$reduse_to;
+									
 								}
 								
-								$all_view_max_marks+=$view_max_marks;
 							} 	
 						}
 						else
@@ -173,6 +173,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					?>
 					<th height="30px"><b><?php echo $view_max_marks; ?></b></th>
 					<?php
+						$all_view_max_marks+=$view_max_marks;
+
                 } }
                 ?>	
             <th><?php echo $all_view_max_marks; ?></th>
@@ -275,12 +277,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								$FetchExamCategoryId=$exam_category_Fetch['exam_category_id'];
 								$TotalOneSubject=0;
 								$TotalOneSubjectMax=0;
+								$dummy_add=0;
 								//** Exam Mapping Table ------- FInd Exam Category TYpe
 								$exam_categoryTYpe_query=mysql_query("select `exam_category_type_id`,`max_marks`,`reduse`,`reduse_to` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$ftc_ArchitacherQueryTerm_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id`='$FetchExamCategoryId' ORDER BY `exam_category_id` ASC");
 								$l=0;
 								$reduse_mark=0;
 								$dummy_max_marks=0;
-								$TotalGetMarks=0;
+								//$TotalGetMarks=0;
 								while($exam_categoryType_Fetch=mysql_fetch_array($exam_categoryTYpe_query))
 								{
 									
@@ -293,7 +296,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 										$TotalMaxMarks+=$MainMaxMarks;
 										$TotalOneSubjectMax+=$MainMaxMarks;
 										$OverAllTotalMaxMarks+=$MainMaxMarks;
-									}else if(($reduse=='yes') && ($l==0)){
+									}else if(($reduse=='yes')){
+										
 										$l=1;
 										$TotalMaxMarks+=$reduse_to;
 										$TotalOneSubjectMax+=$reduse_to;
@@ -307,28 +311,33 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
 									$SubjectMarks=$FetchStudentMarks['marks'];
 									// Count Total Get Marks One subject and Overall
-									$reduse_calculation=0;
+									$reduse_calculation=0; 
 									if($reduse=='no'){
-									$TotalGetMarks+=$SubjectMarks;
-									$TotalOneSubject+=$SubjectMarks;
-									$OverAllTotalGetMarks+=$SubjectMarks;
-									}else if($reduse=='yes'){
-										echo 'inc'.$mark_reduse=$SubjectMarks;
-										echo 'rd'.$reduse_mark;
-										 echo 'per'.$reduce_percentage=(($reduse_mark*100)/$dummy_max_marks);
-										 
-										  echo 'final'.$reduse_calculation=(($mark_reduse*$reduce_percentage)/100);
-										  echo '<br>';
-										$TotalGetMarks+=$reduse_calculation;
+										$TotalGetMarks+=$SubjectMarks;
+										$TotalOneSubject+=$SubjectMarks;
+										$OverAllTotalGetMarks+=$SubjectMarks;
+									}else{
+										$dummy_add+=$SubjectMarks;
 									}
 								}
+								if($reduse=='yes'){
+										 
+										$mark_reduse=$dummy_add;
+										$reduse_mark;
+										$dummy_max_marks;
+										$reduce_percentage=(($reduse_mark*100)/$dummy_max_marks);	 
+										$reduse_calculation=(($mark_reduse*$reduce_percentage)/100);
+										$TotalGetMarks+=$reduse_calculation;
+										$TotalOneSubject+=$reduse_calculation;
+										$OverAllTotalGetMarks+=$reduse_calculation;
+									}
 								$average_percentage=(($TotalOneSubject/$MainMaxMarks)*100);
 								?>
 								<td>
-									<?php echo $TotalGetMarks; ?>
+									<?php echo $TotalOneSubject; ?>
 								</td>
 							<?php
-							$forCOl++;
+							$forCOl++;;
 							}
  						}
 					}
@@ -507,59 +516,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						
 						?>
 						
-		<table width="100%" height="200" border="2"  cellspacing="0" cellpadding="0"  >
-		<tr>
-			<th colspan="3" height="35px">Term Report</th>
-		</tr>
-		<tr>
-			<td width="10%" height="35px">Sr.no</td>
-			<td width="40%">Name</td>
-			<td width="40%">Final</td>
-		</tr>
-		<tr>
-			<td height="30px">1.</td>
-			<td>Class Teacher</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td height="30px">2.</td>
-			<td>Examination</td>
-			<td>Mrs. Pushpa Sharma</td>
-		</tr>
-		<tr>
-			<td height="30px">3.</td>
-			<td>Principal</td>
-			<td>Mr. Shashank Taunk</td>
-		</tr>
-		</table>
-		
-		<table width="100%" height="180" border="2"  cellspacing="0" cellpadding="0" >
-		<tr>
-			<td colspan="3" height="35px">Final Report</td>
-		</tr>
-		<tr>
-			<td width="10%" height="35px">Sr.no</td>
-			<td width="40%">Report</td>
-			<td width="40%">Status</td>
-		</tr>
-		<tr>
-			<td height="30px">1.</td>
-			<td>Congratulations </td>
-			<td></td>
-		</tr>
-		<tr>
-			<td height="30px">2.</td>
-			<td>Promotion Granted to</td>
-			<td></td>
-		</tr>
-		</table>
-		
-		<table width="100%" height="250" border="2"  cellspacing="0" cellpadding="0" >
-		<tr>
-			<th width="11%" height="35px">Sr.no</th>
-			<th width="30%">Name</th>
-			<th width="30%">Signature</th>
-			<th width="30%" rowspan="5">
+		<table width="100%" height="200" border="2"  cellspacing="0" cellpadding="0" >
+		<tr bgcolor="#E0A366">
+			<th width="10%" height="28px">Sr.no</th>
+			<th width="20%">Designation</th>
+			<th width="20%">Name</th>
+			<th width="20%">Signature</th>
+			<th width="20%" rowspan="5" style="background-color:#FFF">
 			<?php
 				qrcode_1_2_fnl();
 			?>
@@ -567,32 +530,35 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			</th>
 		</tr>
 		<tr>
-			<td height="30px">1.</td>
+			<td height="28px">1.</td>
 			<td>Class Teacher</td>
 			<td></td>
+			<td></td>
 		</tr>
 		<tr>
-			<td height="30px">2.</td>
+			<td height="28px">2.</td>
 			<td>Examination</td>
+			<td>Mrs. Pushpa Sharma</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td height="30px">3.</td>
+			<td height="28px">3.</td>
 			<td>Principal</td>
+			<td>Mr. Shashank Taunk</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td height="30px">4.</td>
+			<td height="28px">4.</td>
 			<td>Parents</td>
+			<td><?php echo $father_name; ?></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td colspan="2" height="30px"></td>
+			<td colspan="3" height="30px"></td>
 			<td>Date of Issue</td>
 			<td><?php echo date('d-M-Y')?></td>
 		</tr>
 		</table>
-		
 		
 	<!-- Header End ---> 
     <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1" id="sample_1">
