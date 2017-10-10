@@ -81,11 +81,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 	<!-- Header End ---> 
     <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1" id="sample_1">
 		<tbody>
-         <tr class="header_font">
-             <th height="33" rowspan="3" colspan="2" style="margin-left:5px">Subject / Exam</th>
-			 <th height="30px" colspan="100"><?php echo $term; ?></th>
-			 </tr>
-			 <tr>
+			<tr class="header_font" bgcolor="CCFFCC">
+				<td  height="30px" colspan="100">Part 1 : Scholastic Area</td>
+			<tr>
+			<tr class="header_font" bgcolor="#E0A366">
+				 <th height="33" rowspan="2" colspan="2" style="margin-left:5px">Subject / Exam</th>
+				 <th height="30px" colspan="100"><?php echo $term; ?></th>
+			</tr>
+			<tr class="header_font" bgcolor="#E0A366">
 				<?php 
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -123,12 +126,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					<?php
                 } }
                 ?>	
-            <th>Over All Grade</th>
+            <th>Over All Total</th>
+            <th>Grade</th>
 			
          </tr>
 		 
 		 <!----------MAX--MARKS--START----------->
-		 <tr>
+		 <tr class="header_font"><th colspan="2">Max Marks</th>
 				<?php 
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -178,12 +182,14 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
                 } }
                 ?>	
             <th><?php echo $all_view_max_marks; ?></th>
+            <th></th>
 			
          </tr>
 		 
 		 <!----------MAX--MARKS--END----------->
 		 
-		 
+		<!--- A Max+
+				L T M Max marks=0 ------------------------> 
          	<?php 
  			$OverAllTotalGetMarks=0;
 			$OverAllTotalMaxMarks=0;
@@ -292,25 +298,31 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									$reduse=$exam_categoryType_Fetch['reduse'];
 									$reduse_to=$exam_categoryType_Fetch['reduse_to'];
 									// Count Total Max Marks One subject and Overall
+									
+									$StudentMarksQuery=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `term_id`='$ftc_ArchitacherQueryTerm_id' && `exam_category_id`='$FetchExamCategoryId' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `master_exam_type_id` = '$exam_category_type_id'");
+									$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
+									$SubjectMarks=$FetchStudentMarks['marks'];
+									// Count Total Get Marks One subject and Overall
+									//--- ATML COnsept
+									if($SubjectMarks=='A'){}
+									if($SubjectMarks=='M'){$MainMaxMarks=0; $SubjectMarks='M';}
+									if($SubjectMarks=='T'){$MainMaxMarks=0; $SubjectMarks='T';}
+									if($SubjectMarks=='L'){$MainMaxMarks=0;$SubjectMarks='L';}
+									
 									if($reduse=='no'){
 										$TotalMaxMarks+=$MainMaxMarks;
-										$TotalOneSubjectMax+=$MainMaxMarks;
 										$OverAllTotalMaxMarks+=$MainMaxMarks;
 									}else if(($reduse=='yes')){
 										
 										$l=1;
 										$TotalMaxMarks+=$reduse_to;
-										$TotalOneSubjectMax+=$reduse_to;
 										$OverAllTotalMaxMarks+=$reduse_to;
 									}
 									if($reduse=='yes'){
 										$reduse_mark=$reduse_to;
 									}
 									$dummy_max_marks+=$MainMaxMarks;
-									$StudentMarksQuery=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `term_id`='$ftc_ArchitacherQueryTerm_id' && `exam_category_id`='$FetchExamCategoryId' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `master_exam_type_id` = '$exam_category_type_id'");
-									$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
-									$SubjectMarks=$FetchStudentMarks['marks'];
-									// Count Total Get Marks One subject and Overall
+									
 									$reduse_calculation=0; 
 									if($reduse=='no'){
 										$TotalGetMarks+=$SubjectMarks;
@@ -319,9 +331,10 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									}else{
 										$dummy_add+=$SubjectMarks;
 									}
+									
 								}
+								 
 								if($reduse=='yes'){
-										 
 										$mark_reduse=$dummy_add;
 										$reduse_mark;
 										$dummy_max_marks;
@@ -331,10 +344,10 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 										$TotalOneSubject+=$reduse_calculation;
 										$OverAllTotalGetMarks+=$reduse_calculation;
 									}
-								$average_percentage=(($TotalOneSubject/$MainMaxMarks)*100);
+								 
 								?>
 								<td>
-									<?php echo $TotalOneSubject; ?>
+									<?php echo $TotalOneSubject;//.'--'.$TotalMaxMarks; ?>
 								</td>
 							<?php
 							$forCOl++;;
@@ -354,7 +367,11 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
                          	<th>
 								<?php 
 								echo $TotalGetMarks;
-								//echo $tot_show_grade=calculate_primary_grade($tot_avg); ?>
+								?>
+							 </th>
+							 <th>
+								<?php
+								echo $tot_show_grade=calculate_secondary_grade($tot_avg); ?>
 							 </th>
 							   
                         <?php
@@ -387,63 +404,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
              
   		</tbody>
 	</table>
-		 
-        <!---- Maximum Rows---->
-        
 		
-		
-        <!----End Maximum Rows---->
-		 
-					<!--table width="100%"  cellspacing="0px" cellpadding="0px" border="1">
-					
-					
-					
-					
-						<tr>
-							 <th style="height:55px" >Attendance Term</th>
-							 <?php 
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `name` from `master_term` where `id`='$heading_term'");
-								$ft3=mysql_fetch_array($st3);
-								$heading_name=$ft3['name'];
-								?>
-								<th ><?php echo $heading_name; ?></th>
-								<?php
-							}
-							?>
-							<th>Over All</th>
-						 </tr>
- 						 <tr>
-							<th style="height:55px" >Attendance</th>
-							<?php 
-							$totalAttendP=0;
-							$totalAttendPGET=0;
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'	");
-								$ft3=mysql_fetch_array($st3);
-								$attendance=$ft3['attendance'];
-								$max_attendance=$ft3['max_attendance'];
-								$totalAttendP+=$attendance;
-								$totalAttendPGET+=$max_attendance;
-								$GetPercentageAttend=(($attendance/$max_attendance)*100);
-								?>
-								<th><?php echo $attendance.'/'.$max_attendance ?></th>
-								<?php
-							}
-							$GetPercentageAttendOverAll=(($totalAttendP/$totalAttendPGET)*100);
-							?>
-							<th><?php echo $totalAttendP.'/'.$totalAttendPGET;?></th>
-						 </tr>
-					</table-->
-				 
-				   
-                        <?php
+		 <?php
 						 //** Calculate Percentage
 							$GetPercentage=(($OverAllTotalGetMarks*100)/$OverAllTotalMaxMarks);
 							$OverAllPersentage=number_format($GetPercentage,2);
@@ -515,59 +477,17 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						mysql_query("insert into `student_result` SET `class_id`='$class_id',`section_id`='$section_id',`roll_no`='$StudentRollNo',`scholar_no`='$scholar_no',`status`='$status',`final_status`='$FinalStatusOfResult',`per`='$OverAllPersentage',`total`='$OverAllTotalGetMarks',`term_id`='$term_id',`total_marks`='$OverAllTotalMaxMarks',`next_class_id`='$next_class'");
 						
 						?>
-						
-		<table width="100%" height="200" border="2"  cellspacing="0" cellpadding="0" >
-		<tr bgcolor="#E0A366">
-			<th width="10%" height="28px">Sr.no</th>
-			<th width="20%">Designation</th>
-			<th width="20%">Name</th>
-			<th width="20%">Signature</th>
-			<th width="20%" rowspan="5" style="background-color:#FFF">
-			<?php
-				qrcode_1_2_fnl();
-			?>
-
-			</th>
-		</tr>
-		<tr>
-			<td height="28px">1.</td>
-			<td>Class Teacher</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td height="28px">2.</td>
-			<td>Examination</td>
-			<td>Mrs. Pushpa Sharma</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td height="28px">3.</td>
-			<td>Principal</td>
-			<td>Mr. Shashank Taunk</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td height="28px">4.</td>
-			<td>Parents</td>
-			<td><?php echo $father_name; ?></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="3" height="30px"></td>
-			<td>Date of Issue</td>
-			<td><?php echo date('d-M-Y')?></td>
-		</tr>
-		</table>
 		
-	<!-- Header End ---> 
-    <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1" id="sample_1">
+		<table width="100%"  cellspacing="0px" cellpadding="0px" border="1" id="sample_1">
 		<tbody>
-         <tr class="header_font">
-             <th height="33" rowspan="2" colspan="2" style="margin-left:5px">Subject / Exam</th>
-			 <th height="30px" colspan="100"><?php echo $term; ?></th>
-			 </tr>
-			 <tr>
+			<tr class="header_font" bgcolor="CCFFCC">
+				 <th height="30" colspan="102" style="margin-left:5px">Part 2 : Co-Scholastic Activities</th>
+			</tr>
+			<tr class="header_font" bgcolor="#E0A366">
+				<th height="33" rowspan="2" colspan="2" style="margin-left:5px">Subject / Exam</th>
+				<th height="30px" colspan="100"><?php echo $term; ?></th>
+			</tr>
+			<tr class="header_font" bgcolor="#E0A366">
 				<?php 
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -581,7 +501,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 					{
 						
-						$categoryidd=$ftc_categorywise['category_id'];	
+						$categoryidd=$ftc_categorywise['category_id'];
  						$st4=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
 						$countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
@@ -598,17 +518,19 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						else
 						{ for($x=0; $x<$countArchitecure; $x++){echo"<td></td>";}}
 						
-					}
-					if($colspan==1){$colspan=0;}
+					
+					//if($colspan==1){$colspan=0;}
 					?>
-					<th height="30px"><b><?php echo $heading_name; ?></b></th>
+					<th height="30px"><b><?php echo $category_name; ?></b></th>
 					<?php
-                }
+                } }
                 ?>	
             <th>Over All Grade</th>
+ 			
          </tr>
-		   
-        	<?php 
+		 
+		 <!----------MAX--MARKS--START----------->
+		 <?php 
  			$OverAllTotalGetMarks=0;
 			$OverAllTotalMaxMarks=0;
 			$Result=0;
@@ -723,7 +645,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								$average_percentage=(($TotalOneSubject/$MainMaxMarks)*100);
 								?>
 								<td>
-									<?php echo $show_grade=calculate_primary_grade_co_scholar($average_percentage); ?>
+									<?php echo $show_grade=calculate_secondary_grade_co_scholar($average_percentage); ?>
 								</td>
 							<?php
 							$forCOl++;
@@ -741,9 +663,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						$tot_avg=(($TotalGetMarks/$TotalMaxMarks)*100)
 						?>
                          	<th>
-								<?php echo $tot_show_grade=calculate_primary_grade_co_scholar($tot_avg); ?>
-							 </th>
-							   
+								<?php echo $tot_show_grade=calculate_secondary_grade_co_scholar($tot_avg); ?>
+							</th>
                         <?php
 						//** FInd Grade
 						if($TotalGetMarks==0 || $TotalMaxMarks==0){$GetOneSubjectPercentage=0;}
@@ -774,266 +695,160 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
              
   		</tbody>
 	</table>
-	
-	<table width="100%" >
-			<tr>
-				<td width="100%">
-					<table width="100%"  cellspacing="0px" cellpadding="0px" border="1">
-						<tr class="header_font">
-							 <th style="height:45px" >Report B - Attendance</th>
-							 <?php 
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `name` from `master_term` where `id`='$heading_term'");
-								$ft3=mysql_fetch_array($st3);
-								$heading_name=$ft3['name'];
-								?>
-								<th ><?php echo $heading_name; ?></th>
-								<?php
-							}
-							?>
-							<th>Over All</th>
-						 </tr>
-						 <tr>
-							<th style="height:45px" class="header_sub">Number of Meetings</th>
-							<?php 
-							$totalAttend=0;
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'");
-								$ft3=mysql_fetch_array($st3);
-								$max_attendance=$ft3['max_attendance'];
-								$totalAttend+=$max_attendance;
-								?>
-								<th><?php echo $max_attendance; ?></th>
-								<?php
-							}
-							?>
-							<th><?php echo $totalAttend;?></th>
-						 </tr>
-						 <tr>
-							<th style="height:45px" class="header_sub" >No. of Meetings <br> on work present</th>
-							<?php 
-							$totalAttendP=0;
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'");
-								$ft3=mysql_fetch_array($st3);
-								$attendance=$ft3['attendance'];
-								$totalAttendP+=$attendance;
-								?>
-								<th><?php echo $attendance; ?></th>
-								<?php
-							}
-							?>
-							<th><?php echo $totalAttendP;?></th>
-						 </tr>
-						 <tr>
-							<th style="height:40px" class="header_sub" >Percentage</th>
-							<?php 
-							$totalAttendP=0;
-							$totalAttendPGET=0;
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'	");
-								$ft3=mysql_fetch_array($st3);
-								$attendance=$ft3['attendance'];
-								$max_attendance=$ft3['max_attendance'];
-								$totalAttendP+=$attendance;
-								$totalAttendPGET+=$max_attendance;
-								$GetPercentageAttend=(($attendance/$max_attendance)*100);
-								?>
-								<th><?php echo round($GetPercentageAttend , 2 ); ?>%</th>
-								<?php
-							}
-							$GetPercentageAttendOverAll=(($totalAttendP/$totalAttendPGET)*100);
-							?>
-							<th><?php echo round($GetPercentageAttendOverAll , 2);?>%</th>
-						 </tr>
-						 <tr>
-							<th style="height:40px" class="header_sub" >
-								Remarks
-							</th>
-							<?php 
-							$totalAttendP=0;
-							$totalAttendPGET=0;
-							$st=mysql_query("select DISTINCT(term) from `attendance` where `scholar_no`='$scholar_no' ");
-							while($ft=mysql_fetch_array($st))
-							{
-								$heading_term=$ft['term'];
-								$st3=mysql_query("select `attendance`,`max_attendance` from `attendance` where `term`='$heading_term' && `scholar_no`='$scholar_no'	");
-								$ft3=mysql_fetch_array($st3);
-								$attendance=$ft3['attendance'];
-								$max_attendance=$ft3['max_attendance'];
-								$totalAttendP+=$attendance;
-								$totalAttendPGET+=$max_attendance;
-								$GetPercentageAttend=(($attendance/$max_attendance)*100);
-								?>
-								<th><?php echo round($GetPercentageAttend , 2 ); ?>%</th>
-								<?php
-							}
-							$GetPercentageAttendOverAll=(($totalAttendP/$totalAttendPGET)*100);
-							?>
-							<th><?php echo "Good"; ?></th>
-						 </tr>
-					</table>
-				</td>
-			<tr>
-		</table>
-		 <!----------------grade Point----------------------->
-		<table width="100%" height="180" border="2"  cellspacing="0" cellpadding="0" >
-		<tr>
-			<th colspan="3" height="35px">
-				PART-I SCHOLASTIC (GRADING ON NINE POINT SCALE )
-			</th>
-		</tr>
-		<tr>
-			<td width="34%" height="35px">MARKS-RANGE</td>
-			<td width="33%">GRADE</td>
-			<td width="33%">GRADE POINT</td>
-		</tr>
-		<tr>
-			<td height="30px">91 - 100</td>
-			<td>A1 </td>
-			<td>10.0</td>
-		</tr>
-		<tr>
-			<td height="30px">81 - 90</td>
-			<td>A2 </td>
-			<td>9.0</td>
-		</tr>
-		<tr>
-			<td height="30px">71 - 80</td>
-			<td>B1 </td>
-			<td>8.0</td>
-		</tr>
-		<tr>
-			<td height="30px">61 - 70</td>
-			<td>B2 </td>
-			<td>7.0</td>
-		</tr>
-		<tr>
-			<td height="30px">51 - 60</td>
-			<td>C1 </td>
-			<td>6.0</td>
-		</tr>
-		<tr>
-			<td height="30px">45 - 50</td>
-			<td>C2 </td>
-			<td>5.0</td>
-		</tr>
-		<tr>
-			<td height="30px">40 - 44</td>
-			<td>D  </td>
-			<td>4.0</td>
-		</tr>
-		<tr>
-			<td height="30px">21 - 39</td>
-			<td>E1 </td>
-			<td>3.0</td>
-		</tr>
-		<tr>
-			<td height="30px">00 - 20</td>
-			<td>E2 </td>
-			<td>2.0</td>
-		</tr>
-		</table> 
-		 <!----------------grade Point end----------------------->
-		<table width="100%" height="180" border="2"  cellspacing="0" cellpadding="0" >
-		<tr>
-			<th colspan="3" height="35px">
-				PART-II,III,IV,V,VI CO-SCHOLASTIC AREAS SCHOLASTIC (GRADING ON FIVE POINT SCALE )
-			</th>
-		</tr>
-		<tr>
-			<td width="50%" height="35px">MARKS-RANGE</td>
-			<td width="50%">GRADE</td>
-		</tr>
-		<tr>
-			<td height="30px">91 - 100</td>
-			<td>A+</td>
-		</tr>
-		<tr>
-			<td height="30px">81 - 90</td>
-			<td>A&nbsp;&nbsp;</td>
-		</tr>
-		<tr>
-			<td height="30px">71 - 80</td>
-			<td>B+ </td>
-		</tr>
-		<tr>
-			<td height="30px">61 - 70</td>
-			<td>B&nbsp;&nbsp; </td>
-		</tr>
-		<tr>
-			<td height="30px">51 - 60</td>
-			<td>C&nbsp;&nbsp;</td>
-		</tr>
-	</table> 
-        <!---- Maximum Rows---->
-		
-		<table width="100%" height="240" border="1"  cellspacing="0" cellpadding="0"  >
- 			<tr>
-				<td height="30px" style="text-align:left; padding-left:15px;">Percentage </td>
-				<td style="text-align:left; padding-left:10px;"><span style="color:#F00"><b><?php echo $OverAllPersentage; ?> %</b></span></td>
- 			</tr>
-			<tr>
-			<?php
-				if($OverAllPersentage<45)
-				{
-					$Division='III';
-				}
-				if($OverAllPersentage>=45 && $OverAllPersentage<=59)
-				{
-					$Division='II';
-				}
-				if($OverAllPersentage>=60)
-				{
-					$Division='I';
-				}
-				?>
-				<td style="text-align:left; padding-left:15px;" height="30px" >Division</td>
-				<td style="text-align:left; padding-left:10px;"><span style="color:#F00;"><b><?php echo $Division; ?> </b></span></td>
- 			</tr>
+		<table width="100%" height="100px" border="1" cellspacing="0" cellpadding="0" style="text-align:center">
+			<tr  bgcolor="CCFFCC">
+				<th colspan="4" height="30px">Attendance</th>
+			</tr>
+			<?php 
+			$sot1=mysql_query("select * from `attendance` where `scholar_no`='$scholar_no' && `term`='$term_id'");
+			$fot1=mysql_fetch_array($sot1);
+			$total_meeting=$fot1['max_attendance'];
+			$total_attended=$fot1['attendance'];
 			
-			<tr>
-                <td height="30px" style="text-align:left; padding-left:15px;">Rank</th>
-				<td></th>
- 			</tr>
-			<tr>
-                <td height="30px" style="text-align:left; padding-left:15px;">Remarks</th>
-				<td><?php echo $status;?></th>
- 			</tr>
-		</table>
-		<table width="100%" style="margin-bottom:10px"  border="0"  cellspacing="0" cellpadding="0"  >
-            <tr>
-                <th height="100px" width="20%">   </th>
-                <th height="100px" width="20%">   </th>
-                <th width="20%">  </th>
-                <th width="20%">  </th>
-                <th width="20%">  </th>
+			$attendance_percentage=round((($total_attended/$total_meeting)*100), 2);
+			?>
+			<tr bgcolor="#E0A366">
+				<th height="30px" width="25%"> Total Meetings</th>
+				<th>Meetings Attended</th>
+				<th>Percentage</th>
+				<th>Remarks</th>
 			</tr>
 			<tr>
-                <th height="10px" width="20%">Result Date</th>
-                <th height="10px" width="20%">Class Teacher</th>
-                <th width="20%">Examination incharge</th>
-                <th width="20%">Head Mistress</th>
-                <th width="20%">Parents</th>
+				 <td height="28px" width="25%"><?php echo $total_meeting; ?></td>
+				 <td width="25%"><?php echo $total_attended; ?></td>
+				 <td width="25%"><?php echo $attendance_percentage; ?> %</td>
+				 <td width="25%"><?php calculate_remark($attendance_percentage); ?></td>
 			</tr>
+		</table>	
+		<table width="100%"  border="1"  cellspacing="0" cellpadding="0" >
+		<tr bgcolor="#E0A366">
+			<th width="10%" height="28px">Sr.no</th>
+			<th width="20%">Designation</th>
+			<th width="20%">Name</th>
+			<th width="20%">Signature</th>
+			<th width="20%" rowspan="5" style="background-color:#FFF">
+			<?php
+				qrcode_1_2_fnl();
+			?>
+
+			</th>
+		</tr>
+		<tr>
+			<td height="28px">1.</td>
+			<td>Class Teacher</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td height="28px">2.</td>
+			<td>Examination</td>
+			<td>Mrs. Pushpa Sharma</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td height="28px">3.</td>
+			<td>Principal</td>
+			<td>Mr. Shashank Taunk</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td height="28px">4.</td>
+			<td>Parents</td>
+			<td><?php echo $father_name; ?></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3" height="28px"></td>
+			<td>Date of Issue</td>
+			<td><?php echo date('d-M-Y')?></td>
+		</tr>
 		</table>
 		
-		
-		
+	<!-- Header End ---> 
     
-    
+	
+	
+		<!----------------grade Point----------------------->
+	<table  width="100%" >
+		<tr>
+			<td width="50%">
+				<table width="100%" border="2"  cellspacing="0" cellpadding="0" >
+					<tr bgcolor="CCFFCC">
+						<th colspan="3" height="28px">
+							Scholastic Area : Part 1 (Grading on 8 Point Scale)
+						</th>
+					</tr>
+					<tr bgcolor="#E0A366">
+						<td width="34%" height="28px">MARKS-RANGE</td>
+						<td width="33%">GRADE</td> 
+					</tr>
+					<tr>
+						<td height="20px">91 - 100</td>
+						<td>A1 </td>
+					</tr>
+					<tr>
+						<td height="20px">81 - 90</td>
+						<td>A2 </td>
+					</tr>
+					<tr>
+						<td height="20px">71 - 80</td>
+						<td>B1 </td>
+					</tr>
+					<tr>
+						<td height="20px">61 - 70</td>
+						<td>B2 </td>
+					</tr>
+					<tr>
+						<td height="20px">51 - 60</td>
+						<td>C1</td>
+					</tr>
+					<tr>
+						<td height="20px">41 - 50</td>
+						<td>C2</td>
+					</tr>
+					<tr>
+						<td height="20px">33 - 40</td>
+						<td>D</td> 
+					</tr>
+					<tr>
+						<td height="20px">32 & Below</td>
+						<td>E (Need Improvement) </td> 
+					</tr>
+				</table>
+			</td>
+			<td width="50%">
+				 <!----------------grade Point end----------------------->
+				<table width="100%" height="180" border="2"  cellspacing="0" cellpadding="0" >
+					<tr bgcolor="CCFFCC">
+						<th colspan="3" height="30px">
+							Co-Scholastic Activities Part 2 (Grading on 3 Point Scale)
+						</th>
+					</tr>
+					<tr bgcolor="#E0A366">
+						<td width="33%" height="30px">GRADE</td>
+						<td width="33%">GRADE POINT</td>
+						<td width="33%">GRADE ACHIEVEMENTS</td>
+					</tr>
+					<tr>
+						<td height="28px">A</td>
+						<td>3</td>
+						<td>Outstanding</td>
+					</tr>
+					<tr>
+						<td height="28px">B</td>
+						<td>2</td>
+						<td>Very Good</td>
+					</tr>
+					<tr>
+						<td height="28px">C</td>
+						<td>1</td>
+						<td>Fair</td>
+					</tr>
+ 				</table> 
+			</td>
+		</tr>
+	</table>
+     
 </div>
 </body>
 </html>

@@ -247,7 +247,8 @@ jQuery(document).ready(function() {
 
 	$(".number").on('keyup',function(){	
 		var marks=$(this).val();
-		if(marks>0){
+		
+		if(marks.length >0){//alert(marks);
 		var class_id=$(this).closest('td').find("input[name=class_id]").val();
 		var section_id=$(this).closest('td').find("input[name=section_id]").val();
 		var subject_id=$(this).closest('td').find("input[name=subject_id]").val();
