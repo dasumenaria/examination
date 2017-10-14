@@ -79,18 +79,23 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
    		<?php header_info_Primary($id,$exam_name);?><br>
   
 	<!-- Header End ---> 
-    <table width="100%"  cellspacing="0px" height="300" cellpadding="0px" border="1" id="sample_1">
+    <table width="100%"  cellspacing="0px" height="" cellpadding="0px" border="1" id="sample_1">
 		<tbody>
 			<tr class="header_font" bgcolor="CCFFCC">
 				<td  height="25px" colspan="100">Part 1 : Scholastic Area</td>
 			<tr>
+			<!--<tr class="header_font " bgcolor="#E0A366">
+				<th height="28" colspan="2" rowspan="2" style="margin-left:5px">Subject / Exam</th> 
+				<th height="28px" colspan="3">Periodic Test</th>  
+			</tr>-->
 			<tr class="header_font" bgcolor="#E0A366">
-				 <th height="28" rowspan="2" colspan="2" style="margin-left:5px">Subject / Exam</th>
-				 <th height="28px" colspan="100"><?php echo $term; ?></th>
-			</tr>
-			<tr class="header_font" bgcolor="#E0A366">
+				<th height="28" colspan="2"   style="margin-left:5px">Subject / Exam</th> 
+				<th>PT1</th>
+				<th>PT2</th>
+				<th>PT3</th>
+				<th>Avg. of Best 2 PT</th>
 				<?php 
-                $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
+                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
                 {
                     $heading_term=$ft['term_id'];
@@ -103,8 +108,15 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					{
 						
 						$categoryidd=$ftc_categorywise['category_id'];
+						if($categoryidd==19)
+						{ continue;}
+						if($categoryidd==20)
+						{ continue;}
+						if($categoryidd==21)
+						{ continue;}
+					
  						$st4=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
-						$countexam_mapping=mysql_num_rows($st4);
+						 $countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
 						{	
 							while($ft4=mysql_fetch_array($st4))
@@ -122,9 +134,10 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					
 					//if($colspan==1){$colspan=0;}
 					?>
-					<th height="30px"><b><?php echo $category_name; ?></b></th>
+					<th  height="30px"><b><?php echo $category_name; ?></b></th>
 					<?php
-                } }
+				 } 
+				}
                 ?>	
             <th>Over All Total</th>
             <th>Grade</th>
@@ -132,7 +145,74 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
          </tr>
 		 
 		 <!----------MAX--MARKS--START----------->
-		 <tr class="header_font"  bgcolor="#E0A366"><th colspan="2">Max Marks</th>
+		 <tr class="header_font"  bgcolor="#E0A366">
+			<th colspan="2">Max Marks</th>
+			<th>
+				<?php 
+				$view_max_marks=0;
+				$st4=mysql_query("select DISTINCT(exam_category_id),max_marks,`reduse_to`,`reduse` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `exam_category_id` = '19' ORDER BY `exam_category_id`");
+				$countexam_mapping=mysql_num_rows($st4);
+				if($countexam_mapping>0)
+				{	
+					$f=0;
+					$ft4=mysql_fetch_array($st4); 
+					$reduse=$ft4['reduse'];
+					$reduse_to=$ft4['reduse_to'];
+					$view_max_marks=$ft4['max_marks'];
+					if($f==1){
+						$view_max_marks=0;
+					}
+					if(($reduse=='yes') && ($f==0)){
+						$f=1;
+						$view_max_marks=$reduse_to;
+					}
+					echo $view_max_marks;
+				}
+				?>
+			</th>
+			<th><?php 
+				$view_max_marks=0;
+				$st4=mysql_query("select DISTINCT(exam_category_id),max_marks,`reduse_to`,`reduse` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `exam_category_id` = '20' ORDER BY `exam_category_id`");
+				$countexam_mapping=mysql_num_rows($st4);
+				if($countexam_mapping>0)
+				{	
+					$f=0;
+					$ft4=mysql_fetch_array($st4); 
+					$reduse=$ft4['reduse'];
+					$reduse_to=$ft4['reduse_to'];
+					$view_max_marks=$ft4['max_marks'];
+					if($f==1){
+						$view_max_marks=0;
+					}
+					if(($reduse=='yes') && ($f==0)){
+						$f=1;
+						$view_max_marks=$reduse_to;
+					}
+					echo $view_max_marks;
+				}
+				?></th>
+			<th><?php 
+				$view_max_marks=0;
+				$st4=mysql_query("select DISTINCT(exam_category_id),max_marks,`reduse_to`,`reduse` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `exam_category_id` = '21' ORDER BY `exam_category_id`");
+				$countexam_mapping=mysql_num_rows($st4);
+				if($countexam_mapping>0)
+				{	
+					$f=0;
+					$ft4=mysql_fetch_array($st4); 
+					$reduse=$ft4['reduse'];
+					$reduse_to=$ft4['reduse_to'];
+					$view_max_marks=$ft4['max_marks'];
+					if($f==1){
+						$view_max_marks=0;
+					}
+					if(($reduse=='yes') && ($f==0)){
+						$f=1;
+						$view_max_marks=$reduse_to;
+					}
+					echo $view_max_marks;
+				}
+				?></th>
+			<th>(A = 20)</th>
 				<?php 
                 $st=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
                 while($ft=mysql_fetch_array($st))
@@ -146,7 +226,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 					while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 					{
 						
-						$categoryidd=$ftc_categorywise['category_id'];	
+						$categoryidd=$ftc_categorywise['category_id'];
+						if($categoryidd==19)
+						{ continue;}
+						if($categoryidd==20)
+						{ continue;}
+						if($categoryidd==21)
+						{ continue;}						
  						$st4=mysql_query("select DISTINCT(exam_category_id),max_marks,`reduse_to`,`reduse` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$heading_term' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id`");
 						$countexam_mapping=mysql_num_rows($st4);
 						if($countexam_mapping>0)
@@ -262,11 +348,237 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						{?>
 							<th class="header_sub"  height="25px" width="10%"><?php echo $sub_sub_name; ?></th>
 					<?php } ?>
-					
+				<th>
+				<?php
+					$TotalGetMarks=0;
+					$TotalMaxMarks=0;
+					$PT1=0;
+					$TotalOneSubject=0; 
+					$dummy_add=0;
+					$exam_categoryTYpe_query=mysql_query("select `exam_category_type_id`,`max_marks`,`reduse`,`reduse_to` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id`='19' ORDER BY `exam_category_id` ASC");
+					$l=0;
+					$reduse_mark=0;
+					$dummy_max_marks=0;
+					while($exam_categoryType_Fetch=mysql_fetch_array($exam_categoryTYpe_query))
+					{
+						
+						$exam_category_type_id=$exam_categoryType_Fetch['exam_category_type_id'];
+						$MainMaxMarks=$exam_categoryType_Fetch['max_marks'];
+						$reduse=$exam_categoryType_Fetch['reduse'];
+						$reduse_to=$exam_categoryType_Fetch['reduse_to'];
+						// Count Total Max Marks One subject and Overall
+						
+						$StudentMarksQuery=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `term_id`='$term_id' && `exam_category_id`='19' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `master_exam_type_id` = '$exam_category_type_id'");
+						$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
+						$SubjectMarks=$FetchStudentMarks['marks'];
+						// Count Total Get Marks One subject and Overall
+						//--- ATML COnsept
+						if($SubjectMarks=='A'){}
+						if($SubjectMarks=='M'){$MainMaxMarks=0; $SubjectMarks='M';}
+						if($SubjectMarks=='T'){$MainMaxMarks=0; $SubjectMarks='T';}
+						if($SubjectMarks=='L'){$MainMaxMarks=0;$SubjectMarks='L';}
+						
+						if($reduse=='no'){
+							$TotalMaxMarks+=$MainMaxMarks;
+							$OverAllTotalMaxMarks+=$MainMaxMarks;
+						}else if(($reduse=='yes')){
+							
+							$l=1;
+							$TotalMaxMarks+=$reduse_to;
+							$OverAllTotalMaxMarks+=$reduse_to;
+						}
+						if($reduse=='yes'){
+							$reduse_mark=$reduse_to;
+						}
+						$dummy_max_marks+=$MainMaxMarks;
+						$reduse_calculation=0; 
+						if($reduse=='no'){
+							$TotalGetMarks+=$SubjectMarks;
+							$TotalOneSubject+=$SubjectMarks;
+							$OverAllTotalGetMarks+=$SubjectMarks;
+						}else{
+							$dummy_add+=$SubjectMarks;
+						}
+					}
+					if($reduse=='yes'){
+							$mark_reduse=$dummy_add;
+							$reduse_mark;
+							$dummy_max_marks;
+							$reduce_percentage=(($reduse_mark*100)/$dummy_max_marks);	 
+							$reduse_calculation=(($mark_reduse*$reduce_percentage)/100);
+							$TotalGetMarks+=$reduse_calculation;
+							$TotalOneSubject+=$reduse_calculation;
+							$OverAllTotalGetMarks+=$reduse_calculation;
+						}
+						echo $TotalOneSubject;
+						$PT1=$TotalOneSubject;
+						$TotalOneSubject=0; 
+					?>
+				</th>
+				<th>
+					<?php 
+					$PT2=0;
+					$TotalOneSubject=0; 
+					$dummy_add=0;
+					$exam_categoryTYpe_query=mysql_query("select `exam_category_type_id`,`max_marks`,`reduse`,`reduse_to` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id`='20' ORDER BY `exam_category_id` ASC");
+					$l=0;
+					$reduse_mark=0;
+					$dummy_max_marks=0;
+					while($exam_categoryType_Fetch=mysql_fetch_array($exam_categoryTYpe_query))
+					{
+						
+						$exam_category_type_id=$exam_categoryType_Fetch['exam_category_type_id'];
+						$MainMaxMarks=$exam_categoryType_Fetch['max_marks'];
+						$reduse=$exam_categoryType_Fetch['reduse'];
+						$reduse_to=$exam_categoryType_Fetch['reduse_to'];
+						// Count Total Max Marks One subject and Overall
+						
+						$StudentMarksQuery=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `term_id`='$term_id' && `exam_category_id`='20' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `master_exam_type_id` = '$exam_category_type_id'");
+						$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
+						$SubjectMarks=$FetchStudentMarks['marks'];
+						// Count Total Get Marks One subject and Overall
+						//--- ATML COnsept
+						if($SubjectMarks=='A'){}
+						if($SubjectMarks=='M'){$MainMaxMarks=0; $SubjectMarks='M';}
+						if($SubjectMarks=='T'){$MainMaxMarks=0; $SubjectMarks='T';}
+						if($SubjectMarks=='L'){$MainMaxMarks=0;$SubjectMarks='L';}
+						
+						if($reduse=='no'){
+							$TotalMaxMarks+=$MainMaxMarks;
+							$OverAllTotalMaxMarks+=$MainMaxMarks;
+						}else if(($reduse=='yes')){
+							
+							$l=1;
+							$TotalMaxMarks+=$reduse_to;
+							$OverAllTotalMaxMarks+=$reduse_to;
+						}
+						if($reduse=='yes'){
+							$reduse_mark=$reduse_to;
+						}
+						$dummy_max_marks+=$MainMaxMarks;
+						$reduse_calculation=0; 
+						if($reduse=='no'){
+							$TotalGetMarks+=$SubjectMarks;
+							$TotalOneSubject+=$SubjectMarks;
+							$OverAllTotalGetMarks+=$SubjectMarks;
+						}else{
+							$dummy_add+=$SubjectMarks;
+						}
+					}
+					if($reduse=='yes'){
+							$mark_reduse=$dummy_add;
+							$reduse_mark;
+							$dummy_max_marks;
+							$reduce_percentage=(($reduse_mark*100)/$dummy_max_marks);	 
+							$reduse_calculation=(($mark_reduse*$reduce_percentage)/100);
+							$TotalGetMarks+=$reduse_calculation;
+							$TotalOneSubject+=$reduse_calculation;
+							$OverAllTotalGetMarks+=$reduse_calculation;
+						}
+						echo $TotalOneSubject;
+						$PT2=$TotalOneSubject;
+						$TotalOneSubject=0; 
+					?>
+				</th>
+				<th>
+					<?php
+					$PT3=0;
+					$TotalOneSubject=0; 
+					$dummy_add=0;
+					$exam_categoryTYpe_query=mysql_query("select `exam_category_type_id`,`max_marks`,`reduse`,`reduse_to` from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$term_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id`='21' ORDER BY `exam_category_id` ASC");
+					$l=0;
+					$reduse_mark=0;
+					$dummy_max_marks=0;
+					while($exam_categoryType_Fetch=mysql_fetch_array($exam_categoryTYpe_query))
+					{
+						
+						$exam_category_type_id=$exam_categoryType_Fetch['exam_category_type_id'];
+						$MainMaxMarks=$exam_categoryType_Fetch['max_marks'];
+						$reduse=$exam_categoryType_Fetch['reduse'];
+						$reduse_to=$exam_categoryType_Fetch['reduse_to'];
+						// Count Total Max Marks One subject and Overall
+						
+						$StudentMarksQuery=mysql_query("select * from `student_marks` where `scholar_no`='$scholar_no' && `term_id`='$term_id' && `exam_category_id`='21' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `master_exam_type_id` = '$exam_category_type_id'");
+						$FetchStudentMarks=mysql_fetch_array($StudentMarksQuery);
+						$SubjectMarks=$FetchStudentMarks['marks'];
+						// Count Total Get Marks One subject and Overall
+						//--- ATML COnsept
+						if($SubjectMarks=='A'){}
+						if($SubjectMarks=='M'){$MainMaxMarks=0; $SubjectMarks='M';}
+						if($SubjectMarks=='T'){$MainMaxMarks=0; $SubjectMarks='T';}
+						if($SubjectMarks=='L'){$MainMaxMarks=0;$SubjectMarks='L';}
+						
+						if($reduse=='no'){
+							$TotalMaxMarks+=$MainMaxMarks;
+							$OverAllTotalMaxMarks+=$MainMaxMarks;
+						}else if(($reduse=='yes')){
+							
+							$l=1;
+							$TotalMaxMarks+=$reduse_to;
+							$OverAllTotalMaxMarks+=$reduse_to;
+						}
+						if($reduse=='yes'){
+							$reduse_mark=$reduse_to;
+						}
+						$dummy_max_marks+=$MainMaxMarks;
+						$reduse_calculation=0; 
+						if($reduse=='no'){
+							$TotalGetMarks+=$SubjectMarks;
+							$TotalOneSubject+=$SubjectMarks;
+							$OverAllTotalGetMarks+=$SubjectMarks;
+						}else{
+							$dummy_add+=$SubjectMarks;
+						}
+					}
+					if($reduse=='yes'){
+						$mark_reduse=$dummy_add;
+						$reduse_mark;
+						$dummy_max_marks;
+						$reduce_percentage=(($reduse_mark*100)/$dummy_max_marks);	 
+						$reduse_calculation=(($mark_reduse*$reduce_percentage)/100);
+						$TotalGetMarks+=$reduse_calculation;
+						$TotalOneSubject+=$reduse_calculation;
+						$OverAllTotalGetMarks+=$reduse_calculation;
+					}
+					echo $TotalOneSubject;
+					$PT3=$TotalOneSubject;
+					$TotalOneSubject=0; 
+					?>
+				</th>
+				<th>
+				<?php
+				$TotalGetMarks=0;
+				$TotalMaxMarks=20;
+					$a = $PT1;
+					$b = $PT2;
+					$c = $PT3;
+					if($a>$b || $a>$c)
+					{
+					}
+					else
+					{
+						$a=0;
+					}
+					if($b>$a || $b>$c)
+					{
+					}
+					else
+					{
+						$b=0;
+					}					
+					if($c>$a || $c>$b)
+					{
+					}
+					else
+					{
+						$c=0;
+					}
+					echo $tot=$a+$b+$c;
+					$TotalGetMarks+=$tot;
+ 				?>
+				</th>
 					
                 <?php
-					$TotalMaxMarks=0;
-					$TotalGetMarks=0;
 					$forCOl=0;
  				//* Architacher Loop
 					$ArchitacherQuery=mysql_query("select DISTINCT(term_id) from `master_architecture` where `marksheet_term_id`='$term_id' && `class_id`='$class_id' && `section_id`='$section_id'");
@@ -279,6 +591,12 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 						while($ftc_categorywise=mysql_fetch_array($category_wisecolumn))
 						{ 
 							$categoryidd=$ftc_categorywise['category_id'];
+							if($categoryidd==19)
+							{continue;}
+							if($categoryidd==20)
+							{continue;}
+							if($categoryidd==21)
+							{continue;} 
 							$exam_category_query=mysql_query("select DISTINCT(exam_category_id) from `exam_mapping` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$ftc_ArchitacherQueryTerm_id' && `subject_id`='$subject_id' && `sub_subject_id`='$sub_subject_id' && `exam_category_id` = '$categoryidd' ORDER BY `exam_category_id` ASC");
 							$Countexam_category_query=mysql_num_rows($exam_category_query);
 							while($exam_category_Fetch=mysql_fetch_array($exam_category_query))
@@ -316,7 +634,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 									if($reduse=='no'){
 										$TotalMaxMarks+=$MainMaxMarks;
 										$OverAllTotalMaxMarks+=$MainMaxMarks;
-									}else if(($reduse=='yes' && $l==0)){
+									}else if(($reduse=='yes')){
 										
 										$l=1;
 										$TotalMaxMarks+=$reduse_to;
@@ -351,7 +669,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								 
 								?>
 								<td>
-									<?php echo $TotalOneSubject.'--'.$TotalMaxMarks; ?>
+									<?php echo $TotalOneSubject;//.'--'.$TotalMaxMarks; ?>
 								</td>
 							<?php
 							$forCOl++;;
@@ -375,7 +693,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							 </th>
 							 <th>
 								<?php
-								echo $TotalGetMarks.'/'.$TotalMaxMarks.'='.$tot_avg; //$tot_show_grade=calculate_secondary_grade($tot_avg); ?>
+								echo $tot_show_grade=calculate_secondary_grade($tot_avg); ?>
 							 </th>
 							   
                         <?php
@@ -421,11 +739,13 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							$status="Promoted to Class ".$promt_class;
 							$Promotion=$promt_class;
 							$FinalStatusOfResult="Pass";
+							$FinalStatusOfResultcong="YES";
 						}
 						else if($Result=='1')
 						{   
 							$c=0;
 							$FinalStatusOfResult="Supplementary";
+							$FinalStatusOfResultcong="NO";
 							$StatusOfSubSubject='';
 							$DistSubject='';
 							foreach($FaildInSubject as $sub)
@@ -451,6 +771,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							$status="Detained in Class ".$CurrentClass;
 							$Detained=$CurrentClass;					
 							$FinalStatusOfResult="Fail";
+							$FinalStatusOfResultcong="NO";
 							$c=0;
 							foreach($FaildInSubject as $sub)
 							{
@@ -496,10 +817,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			<tr class="header_font" bgcolor="CCFFCC">
 				 <th height="25" colspan="102" style="margin-left:5px">Part 2 : Co-Scholastic Activities (to be accessed on a 3 point scale)</th>
 			</tr>
-			<tr class="header_font" bgcolor="#E0A366">
-				<th height="30px" colspan="3"><?php echo $term; ?></th>
-			</tr>
-			<tr class="header_font" bgcolor="#E0A366">
+ 			<tr class="header_font" bgcolor="#E0A366">
 				<th height="33" colspan="2" style="margin-left:5px">Activities</th>
 				<th>Grade</th>
 			</tr>
@@ -671,27 +989,16 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
   		</tbody>
 	</table>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	<!----			DECIPLINE		------>
 	<table width="100%"  cellspacing="0px" cellpadding="0px" border="1" id="sample_1">
 		<tbody>
 			<tr class="header_font" bgcolor="CCFFCC">
 				 <th height="25" colspan="102" style="margin-left:5px">Part 3 : Discipline (to be accessed on a 3 point scale)</th>
 			</tr>
+			 
 			<tr class="header_font" bgcolor="#E0A366">
-				<th height="28px" colspan="3"><?php echo $term; ?></th>
-			</tr>
-			<tr class="header_font" bgcolor="#E0A366">
-				<th height="33" colspan="2" style="margin-left:5px">Activities</th>
+				<th height="33" colspan="2" style="margin-left:5px">Elements</th>
 				<th>Grade</th>
 			</tr>
 		 
@@ -853,19 +1160,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
  			?>
   		</tbody>
 	</table>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+ 
 	
 		<table width="100%" height="100px" border="1" cellspacing="0" cellpadding="0" style="text-align:center">
 			<tr  bgcolor="CCFFCC">
@@ -940,10 +1235,21 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 			<td height="28px"></td>
 		</tr>
 		</table>
-		
+ 		
 	<!-- Header End ---> 
-    
-	
+    <table width="100%"  border="1"  cellspacing="0" cellpadding="0" >
+ 		<tr bgcolor="#E0A366">
+  			<th colspan="2" height="28px">Final Report</th>
+		</tr>
+		<tr>
+			<th height="28px">Congratulations</th>
+			<th><?php echo $FinalStatusOfResultcong;?></th>
+  		</tr>
+		<tr>
+ 			<th height="28px">Promotion Granted to</th>
+			<th><?php echo $status; ?></th>
+		</tr>
+	</table>
 	
 		<!----------------grade Point----------------------->
 	<table  width="100%" >
@@ -998,28 +1304,32 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 				<table width="100%" height="180" border="2"  cellspacing="0" cellpadding="0" >
 					<tr bgcolor="CCFFCC">
 						<th colspan="3" height="30px">
-							Co-Scholastic Activities Part 2 (Grading on 3 Point Scale)
+							Co-Scholastic Activities : Part 2 </br>Discipline : Part 3 (Grading on 5 Point Scale)
 						</th>
 					</tr>
 					<tr bgcolor="#E0A366">
 						<td width="33%" height="30px">GRADE</td>
 						<td width="33%">GRADE POINT</td>
-						<td width="33%">GRADE ACHIEVEMENTS</td>
 					</tr>
 					<tr>
-						<td height="28px">A</td>
+						<td height="20px">A</td>
+						<td>5</td>
+					</tr>
+					<tr>
+						<td height="20px">B</td>
+						<td>4</td>
+					</tr>
+					<tr>
+						<td height="20px">C</td>
 						<td>3</td>
-						<td>Outstanding</td>
 					</tr>
 					<tr>
-						<td height="28px">B</td>
+						<td height="20px">D</td>
 						<td>2</td>
-						<td>Very Good</td>
 					</tr>
 					<tr>
-						<td height="28px">C</td>
+						<td height="20px">E</td>
 						<td>1</td>
-						<td>Fair</td>
 					</tr>
  				</table> 
 			</td>

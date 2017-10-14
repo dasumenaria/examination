@@ -605,11 +605,11 @@ function calculate_primary_grade_co_scholar_six($mhfa1)
 }
 function calculate_secondary_grade_co_scholar($mhfa1)
 {
-	if($mhfa1>=00 && $mhfa1<=30.99)
+	if($mhfa1>=33 && $mhfa1<=59.99)
 	{echo "C";}
-	else if($mhfa1>=31 && $mhfa1<=60.99)
+	else if($mhfa1>=60 && $mhfa1<=79.99)
 	{echo "B";}
-	else if($mhfa1>=61 && $mhfa1<=100)
+	else if($mhfa1>=80 && $mhfa1<=100)
 	{echo "A";}
 }
 function calculate_remark($present)

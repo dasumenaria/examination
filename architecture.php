@@ -12,7 +12,7 @@ if(isset($_POST['sub']))
 	$marksheet_term_id=$_POST['marksheet_term_id'];
 	 
 	mysql_query("delete from `master_architecture` where `class_id`='$class_id' && `section_id`='$section_id' && `term_id`='$marksheet_term_id' && `marksheet_term_id`='$term_id'");
-	  
+	//print_r($category_id); exit;  
  foreach($category_id as $value)
  {
 	 $value;
