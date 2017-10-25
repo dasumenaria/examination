@@ -351,7 +351,7 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 								 
 								?>
 								<td>
-									<?php echo $TotalOneSubject.'--'.$TotalMaxMarks; ?>
+									<?php echo $TotalOneSubject;//.'--'.$TotalMaxMarks; ?>
 								</td>
 							<?php
 							$forCOl++;;
@@ -375,7 +375,8 @@ $CuttentStatust=mysql_query("select `roman` from `master_class` where `id`='$cla
 							 </th>
 							 <th>
 								<?php
-								echo $TotalGetMarks.'/'.$TotalMaxMarks.'='.$tot_avg; //$tot_show_grade=calculate_secondary_grade($tot_avg); ?>
+								//echo $TotalGetMarks.'/'.$TotalMaxMarks.'='.$tot_avg;
+								$tot_show_grade=calculate_secondary_grade($tot_avg); ?>
 							 </th>
 							   
                         <?php
